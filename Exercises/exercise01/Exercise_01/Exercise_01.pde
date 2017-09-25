@@ -59,7 +59,22 @@ void draw() {
     // or the bottom (height) of the screen, the circle speed (circleVY) turns 
     //negative(-7), which will make it turn around.
   }
-
+   if (dist(mouseX, mouseY, circleX, circleY) < CIRCLE_SIZE) {
+    CIRCLE_SIZE += sizeGROWTH; 
+    //CHANGED if the mouse is near the circle, it will get smaller
+  }
+   else {
+     CIRCLE_SIZE -= sizeGROWTH;
+ //CHANGED if the mouse isn't close to the circle, it will get bigger
+   }
+  if(CIRCLE_SIZE<20){
+    sizeGROWTH = -sizeGROWTH; 
+    //CHANGED if circle size goes smaller than 20,invert growth propreties
+  }
+  if(CIRCLE_SIZE>300){
+    sizeGROWTH = -sizeGROWTH;
+    //CHANGED if circle size goes bigger than 300,invert growth propreties
+  }
 
 }
 
