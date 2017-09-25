@@ -75,7 +75,7 @@ void draw() {
     sizeGROWTH = -sizeGROWTH;
     //CHANGED if circle size goes bigger than 300,invert growth propreties
   }
-
+//Final, with colors!
 }
 
 void mousePressed() {
