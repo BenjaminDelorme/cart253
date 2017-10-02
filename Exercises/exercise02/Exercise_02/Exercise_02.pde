@@ -10,10 +10,11 @@ color staticColor = color(250);
 int paddleX;
 int paddleY;
 int paddleVX;
+int paddleVY;
 int paddleSpeed = 10;
 int paddleWidth = 128;
 int paddleHeight = 16;
-color paddleColor = color(0,0,0);
+color paddleColor = color(0,255,0);
 
 //Variables for the ball(Size,mouvements, color...)
 int ballX;
@@ -22,7 +23,10 @@ int ballVX;
 int ballVY;
 int ballSpeed = 0;
 int ballSize = 20;
-color ballColor = color(0); 
+color ballColor = color(255,0,0); 
+
+int rectX = 20;
+int rectY = 30;
 
 //Setup program
 void setup() {
@@ -31,6 +35,7 @@ void setup() {
   //Using costum function in setup
   setupPaddle();
   setupBall();
+
 }
 
 //Creating function for original paddle
@@ -70,6 +75,7 @@ void drawStatic() {
     float y = random(0, height);
     float staticSize = random(staticSizeMin, staticSizeMax);
     fill(staticColor);
+    stroke(0);
     rect(x, y, staticSize, staticSize);
   }
 }
@@ -78,7 +84,9 @@ void drawStatic() {
 //when the paddle hits the right or left border, all other value beyond those points are forgotten/unaccessible
 void updatePaddle() {
   paddleX += paddleVX;  
-  paddleX = constrain(paddleX, 0+paddleWidth/2, width-paddleWidth/2);
+  paddleY += paddleVY; // CHANGED Added ability tomove paddle up and down
+  paddleY = constrain(paddleY, 0+paddleHeight/2, height - paddleHeight/2);
+  paddleX = constrain(paddleX, 0+paddleWidth/2, width-paddleWidth/2); //CHANGED unable paddle to go lower than screen
 }
 
 //Ball propreties during the game
@@ -115,8 +123,9 @@ void handleBallHitPaddle() {
     ballY = paddleY - paddleHeight/2 - ballSize/2;
     ballVY = -ballVY;      
     paddleColor += 20; //CHANGED the more the ball hits the paddle,the more the paddle and the ball get blue
-    ballColor += 20;
+    
   }
+
 }
 
 //Setting this fonction so if the ball is within the range of the top of the paddle, it is true, othewise its false
@@ -150,6 +159,7 @@ void handleBallHitWall() {
   if (ballX - ballSize/2 < 0) {
     ballX = 0 + ballSize/2;
     ballVX = -ballVX;
+    ballColor += 20;
   } else if (ballX + ballSize/2 > width) {
     ballX = width - ballSize/2;
     ballVX = -ballVX;
@@ -167,6 +177,10 @@ void keyPressed() {
     paddleVX = -paddleSpeed;
   } else if (keyCode == RIGHT) {
     paddleVX = paddleSpeed;
+  } else if (keyCode== UP) {//  CHANGED able to move paddle up and down
+    paddleVY = -paddleSpeed;
+  } else if (keyCode == DOWN){
+    paddleVY = paddleSpeed;
   }
   if (keyCode == 32) {
     ballVX =(7);      //CHANGED press SPACE so that the ball starts moving
@@ -179,5 +193,8 @@ void keyReleased() {
     paddleVX = 0;
   } else if (keyCode == RIGHT && paddleVX > 0) {
     paddleVX = 0;
-  }
+  } else if (keyCode == UP && paddleVY < 0) { //  CHANGED paddle stop moving up and down when key released
+    paddleVY = 0;
+  }else if (keyCode == DOWN && paddleVY > 0) {
+    paddleVY = 0;}
 }
