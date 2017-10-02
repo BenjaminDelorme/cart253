@@ -1,10 +1,10 @@
-color backgroundColor = color(0);
 
-//Variables for flickery background
-int numStatic = 1000;
+color backgroundColor = color(233);
+//Variables for flickery background      CHANGED size and color
+int numStatic = 40;
 int staticSizeMin = 1;
-int staticSizeMax = 3;
-color staticColor = color(200);
+int staticSizeMax = 220;
+color staticColor = color(250);
 
 //Variables for paddle(size, mouvements,color...)
 int paddleX;
@@ -13,22 +13,22 @@ int paddleVX;
 int paddleSpeed = 10;
 int paddleWidth = 128;
 int paddleHeight = 16;
-color paddleColor = color(255);
+color paddleColor = color(0,0,0);
 
 //Variables for the ball(Size,mouvements, color...)
 int ballX;
 int ballY;
 int ballVX;
 int ballVY;
-int ballSpeed = 5;
-int ballSize = 16;
-color ballColor = color(255);
+int ballSpeed = 0;
+int ballSize = 20;
+color ballColor = color(0); 
 
 //Setup program
 void setup() {
   size(640, 480);
-  
-  //Using costum fonction in setup
+
+  //Using costum function in setup
   setupPaddle();
   setupBall();
 }
@@ -56,6 +56,7 @@ void draw() {
 
   updatePaddle();
   updateBall();
+  handleBallHitPaddle();
 
   drawPaddle();
   drawBall();
@@ -65,11 +66,11 @@ void draw() {
 //randomly throughout the screen. Different every frame.
 void drawStatic() {
   for (int i = 0; i < numStatic; i++) {
-   float x = random(0,width);
-   float y = random(0,height);
-   float staticSize = random(staticSizeMin,staticSizeMax);
-   fill(staticColor);
-   rect(x,y,staticSize,staticSize);
+    float x = random(0, width);
+    float y = random(0, height);
+    float staticSize = random(staticSizeMin, staticSizeMax);
+    fill(staticColor);
+    rect(x, y, staticSize, staticSize);
   }
 }
 
@@ -77,18 +78,20 @@ void drawStatic() {
 //when the paddle hits the right or left border, all other value beyond those points are forgotten/unaccessible
 void updatePaddle() {
   paddleX += paddleVX;  
-  paddleX = constrain(paddleX,0+paddleWidth/2,width-paddleWidth/2);
+  paddleX = constrain(paddleX, 0+paddleWidth/2, width-paddleWidth/2);
 }
 
 //Ball propreties during the game
 void updateBall() {
   ballX += ballVX;
   ballY += ballVY;
-  
-  //Setting own functions
-  handleBallHitPaddle();
-  handleBallHitWall();
-  handleBallOffBottom();
+
+
+//Setting own functions
+
+
+handleBallHitWall();
+handleBallOffBottom();
 }
 
 //Draw the paddle
@@ -110,7 +113,9 @@ void drawBall() {
 void handleBallHitPaddle() {
   if (ballOverlapsPaddle()) {
     ballY = paddleY - paddleHeight/2 - ballSize/2;
-    ballVY = -ballVY;
+    ballVY = -ballVY;      
+    paddleColor += 20; //CHANGED the more the ball hits the paddle,the more the paddle and the ball get blue
+    ballColor += 20;
   }
 }
 
@@ -129,6 +134,10 @@ void handleBallOffBottom() {
   if (ballOffBottom()) {
     ballX = width/2;
     ballY = height/2;
+    ballVX =0;
+    ballVY = 0;
+    paddleColor = 0; // CHANGED the ball and paddle return to black if ball falls off
+    ballColor = 0;
   }
 }
 
@@ -145,7 +154,7 @@ void handleBallHitWall() {
     ballX = width - ballSize/2;
     ballVX = -ballVX;
   }
-  
+
   if (ballY - ballSize/2 < 0) {
     ballY = 0 + ballSize/2;
     ballVY = -ballVY;
@@ -158,6 +167,10 @@ void keyPressed() {
     paddleVX = -paddleSpeed;
   } else if (keyCode == RIGHT) {
     paddleVX = paddleSpeed;
+  }
+  if (keyCode == 32) {
+    ballVX =(7);      //CHANGED press SPACE so that the ball starts moving
+    ballVY = 7;
   }
 }
 //If we release the keys, the paddle stops moving
