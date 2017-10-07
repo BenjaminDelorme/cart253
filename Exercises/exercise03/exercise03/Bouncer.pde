@@ -1,3 +1,4 @@
+//Creating "Bouncer" class and setting up variables to define later
 class Bouncer {
   
  int x;
@@ -9,6 +10,8 @@ class Bouncer {
  color defaultColor;
  color hoverColor;
  
+ //Setting temporary variables, which will be defined in the main program
+ //so that we can apply differents settings to different "Bouncer" class
  Bouncer(int tempX, int tempY, int tempVX, int tempVY, int tempSize, color tempDefaultColor, color tempHoverColor) {
    x = tempX;
    y = tempY;
@@ -20,14 +23,19 @@ class Bouncer {
    fillColor = defaultColor;
  }
  
+ //Creating the update method, which we'll use in the main program
+ //-Making the ball bounce off the walls and making our mouse interact with it
  void update() {
    x += vx;
    y += vy;
    
+   //Adding functions applying in the update() method/ wil be define later
    handleBounce();
    handleMouse();
  }
  
+ //Defining the handleBounce function - Adding the conditionals so
+ //that the ball bounces off the walls
  void handleBounce() {
    if (x - size/2 < 0 || x + size/2 > width) {
     vx = -vx; 
@@ -41,6 +49,8 @@ class Bouncer {
    y = constrain(y,size/2,height-size/2);
  }
  
+  //Defining the handleMouse function - Adding the conditionals so
+ //that the ball changes color when our mouse in on it
  void handleMouse() {
    if (dist(mouseX,mouseY,x,y) < size/2) {
     fillColor = hoverColor; 
@@ -50,6 +60,8 @@ class Bouncer {
    }
  }
  
+ //Creating the draw method, which we'll use in the main program
+ //- Defining the ellipse uses in the program
  void draw() {
    noStroke();
    fill(fillColor);
