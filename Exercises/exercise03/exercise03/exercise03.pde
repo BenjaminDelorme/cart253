@@ -3,6 +3,7 @@ color backgroundColor = color(250);
 Bouncer bouncer;
 Bouncer bouncer2;
 
+
 //Adding 2 new Bouncer and setting their variables
 void setup() {
   size(640,480);

@@ -9,6 +9,7 @@ class Bouncer {
  color fillColor;
  color defaultColor;
  color hoverColor;
+
  
  //Setting temporary variables, which will be defined in the main program
  //so that we can apply differents settings to different "Bouncer" class
@@ -38,15 +39,23 @@ class Bouncer {
  //that the ball bounces off the walls
  void handleBounce() {
    if (x - size/2 < 0 || x + size/2 > width) {
-    vx = -vx; 
+    vx = -vx;
+    x= 150;     //CHANGED if one of the balls touch the left or right wall,
+                //that ball teleports to a x location of 150
+    vy = vy/2;  //CHANGED if one of the balls touch the left or right wall,
+                //the Y speed gets devided by two.
+
    }
    
    if (y - size/2 < 0 || y + size/2 > height) {
      vy = -vy;
-   }
+     vy = vy*2;//CHANGED if one of the balls touch floor or ceiling,
+                //the Y speed multiplies by two.
+
    
    x = constrain(x,size/2,width-size/2);
    y = constrain(y,size/2,height-size/2);
+   }
  }
  
   //Defining the handleMouse function - Adding the conditionals so
