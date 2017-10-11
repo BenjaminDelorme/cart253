@@ -33,6 +33,7 @@ class Bouncer {
    //Adding functions applying in the update() method/ wil be define later
    handleBounce();
    handleMouse();
+   
  }
  
  //Defining the handleBounce function - Adding the conditionals so
@@ -42,17 +43,20 @@ class Bouncer {
     vx = -vx;
     x= 150;     //CHANGED if one of the balls touch the left or right wall,
                 //that ball teleports to a x location of 150
-    vy = vy/2;  //CHANGED if one of the balls touch the left or right wall,
-                //the Y speed gets devided by two.
-
+                
+     size = size*2; //CHANGED if ball hits touches left or right wall,
+                     //that ball"s size doubles
    }
    
    if (y - size/2 < 0 || y + size/2 > height) {
      vy = -vy;
-     vy = vy*2;//CHANGED if one of the balls touch floor or ceiling,
-                //the Y speed multiplies by two.
-
+     size = size/2;  //CHANGED if ball hits touches floor or ceilling,
+                     //that ball"s size gets devided by 2
    
+                     
+                     
+   size = constrain(size,size/4,size*4); //CHANGED ball size can't get bigger than
+   //4 times it's size and get smaller than 4 times it's size
    x = constrain(x,size/2,width-size/2);
    y = constrain(y,size/2,height-size/2);
    }
@@ -68,6 +72,8 @@ class Bouncer {
      fillColor = defaultColor;
    }
  }
+ 
+
  
  //Creating the draw method, which we'll use in the main program
  //- Defining the ellipse uses in the program
