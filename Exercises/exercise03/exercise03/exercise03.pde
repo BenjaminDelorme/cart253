@@ -17,6 +17,7 @@ void setup() {
 void draw() {
   bouncer.update();
   bouncer2.update();
+  
   bouncer.draw();
   bouncer2.draw();
 }
