@@ -15,7 +15,7 @@ class Ball {
   int vx;
   int vy;
 
-  color ballColor = color(255);
+  color ballColor = color(185,34,190);
   char space;   // ADDED "space as a propretie to use later
 
 
@@ -81,8 +81,8 @@ class Ball {
   // something like an int (e.g. 0 = not off, 1 = off left, 2 = off right)
   // or a String (e.g. "ON SCREEN", "OFF LEFT", "OFF RIGHT")
   
-  boolean OffScreenLeft() {
-    return (x + SIZE/2 < 0);
+  boolean OffScreenLeft() {       //CHANGED split the isOffScreen method to create a OffLeft and OffRight, that way
+    return (x + SIZE/2 < 0);      //I can keep track of the score
   }
   boolean OffScreenRight() {
     return  (x - SIZE/2 > width);
