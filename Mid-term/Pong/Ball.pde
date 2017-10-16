@@ -1,26 +1,22 @@
 // Ball
-//
-// A class that defines a ball that can move around in the window, bouncing
-// of the top and bottom, and can detect collision with a paddle and bounce off that.
+
 
 class Ball {
 
   /////////////// Properties ///////////////
 
-  // Default values for speed and size
+
   int SPEED = 5;
   int SIZE = 16;
 
-  // The location of the ball
   int x;
   int y;
 
-  // The velocity of the ball
   int vx;
   int vy;
 
-  // The colour of the ball
   color ballColor = color(255);
+  char space;   // ADDED "space as a propretie to use later
 
 
   /////////////// Constructor ///////////////
@@ -34,11 +30,13 @@ class Ball {
   // NOTE that I'm using an underscore in front of the arguments to distinguish
   // them from the class's properties
 
-  Ball(int _x, int _y) {
+  Ball(int _x, int _y, char _space) {
     x = _x;
     y = _y;
-    vx = SPEED;
-    vy = SPEED;
+    vx = 0;
+    vy = 0;
+    space = _space;
+   
   }
 
 
@@ -70,6 +68,9 @@ class Ball {
   void reset() {
     x = width/2;
     y = height/2;
+    vx = 0;
+    vy = 0;
+   SPEED = -SPEED;       // ADDED ball swich side everytime the ball resets
   }
   
   // isOffScreen()
@@ -80,8 +81,11 @@ class Ball {
   // something like an int (e.g. 0 = not off, 1 = off left, 2 = off right)
   // or a String (e.g. "ON SCREEN", "OFF LEFT", "OFF RIGHT")
   
-  boolean isOffScreen() {
-    return (x + SIZE/2 < 0 || x - SIZE/2 > width);
+  boolean OffScreenLeft() {
+    return (x + SIZE/2 < 0);
+  }
+  boolean OffScreenRight() {
+    return  (x - SIZE/2 > width);
   }
 
   // collide(Paddle paddle)
@@ -124,5 +128,13 @@ class Ball {
 
     // Draw the ball
     rect(x, y, SIZE, SIZE);
+  }
+  
+  // ADDED need to press "space" for the ball to start moving
+  void keyPressed(){
+   if (key == space){
+     vx = SPEED;
+     vy = SPEED;
+  }
   }
 }
