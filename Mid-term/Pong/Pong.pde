@@ -15,6 +15,11 @@ boolean LbulletMoving= false;
 boolean RbulletMoving = false;
 
 
+//ADDED these boolean, to use when one of the paddle is hit
+boolean RpaddleHit = false;
+boolean LpaddleHit = false;
+
+
 // The distance from the edge of the window a paddle should be
 int RPx = 8;
 int RPy = 540/2;
@@ -83,29 +88,54 @@ fill(55);
   text(scoreRight, width-30, 50);
 
 
-
+// Paddle and ball upgrade method apply
   leftPaddle.update();
   rightPaddle.update();
   ball.update();
   
   
-  //ADDED gun upgrade methods
+  //ADDED gun upgrade methods apply
+  
   leftGun.update();
   rightGun.update();
  
  
+ 
   // Check if the ball has collided with either paddle
-  ball.collide(leftPaddle);
+  //CHANGED ball.collide only apply is paddle.Hit is false(is the paddle isn't hit by a bullet)/
+  //seperated the two
+  if(RpaddleHit == false){
   ball.collide(rightPaddle);
+  }
+  
+  if(LpaddleHit == false){
+    ball.collide(leftPaddle);
+  }
 
 
- if(leftGun.x == width && leftGun.y >= rightPaddle.y+35 && leftGun.y <= rightPaddle.y-35){
-   background(0);
+
+
+//ADDED these happen if left bullet hits right paddle
+ if(leftGun.x >= width - 14 && leftGun.y >= rightPaddle.y-35 && leftGun.y <= rightPaddle.y+35){
+   rightPaddle.RpaddleHit();  
+   RpaddleHit = true;
  }
+ 
+ //ADDED these happen if right bullet hits left paddle
+ if(rightGun.x <= 14 && rightGun.y >= leftPaddle.y-35 && rightGun.y <= leftPaddle.y+35){
+  leftPaddle.LpaddleHit();
+  LpaddleHit = true;
+ }
+ 
+ 
+ 
 
   // Check if the ball has gone off the screen
-  if (ball.OffScreenRight()) {                      //CHANGED/ADDED if the ball goes off on one side of the screen, 
-    // If it has, reset the ball                       add 1 to the number displayed on the other side of the screen
+  // If it has, reset the ball 
+  //CHANGED/ADDED if the ball goes off on one side of the screen, add 1 to the number displayed on the other side of the screen
+  
+  
+  if (ball.OffScreenRight()) {                                      
     ball.reset();
     scoreLeft ++;
   }
