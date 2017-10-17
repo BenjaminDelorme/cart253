@@ -10,6 +10,11 @@ Gun rightGun;
 Gun leftGun;
 
 
+Text text;
+
+
+boolean gameStart = false;
+
 //ADDED bullet moving boolean, to change their propreties if they are moving
 boolean LbulletMoving= false;
 boolean RbulletMoving = false;
@@ -41,6 +46,8 @@ int scoreRight = 0; //ADDED right score variable
 String leftWin= "Left Player Won";
 String rightWin= "Right Player Won";
 
+
+
 PImage background; //ADDED PImage to declare an image with background name
 
 
@@ -69,6 +76,8 @@ void setup() {
   //ADDED gun class/ defines their arguments
   leftGun = new Gun(LGx, LGy,10, 'd',55);
   rightGun = new Gun(RGx, RGy,-10,37,255);
+  
+  text = new Text();
 }
 
 
@@ -82,15 +91,12 @@ void draw() {
 
   
   
- //ADDED score display
-fill(55);
-  text(scoreLeft, 30, 50); fill(255);
-  text(scoreRight, width-30, 50);
 
 
 // Paddle and ball upgrade method apply
   leftPaddle.update();
   rightPaddle.update();
+  
   ball.update();
   
   
@@ -138,10 +144,12 @@ fill(55);
   if (ball.OffScreenRight()) {                                      
     ball.reset();
     scoreLeft ++;
+  
   }
   if (ball.OffScreenLeft()) {
     ball.reset();
     scoreRight++;
+   
   }  
   
   //ADDED when the bullets go off screen, reset methods and moving propreties resets
@@ -159,12 +167,27 @@ fill(55);
    }
 
 
+//ADDED if the game hasn't  started, text from Intro class will be displayed
+if (gameStart == false){
+ text.introText();
+}
 
 
+//CHANGED put these function so that they apply only if game is started
+if(gameStart==true){
+   ball.display();
+   
+    //ADDED score display
+    textSize(30);
+fill(55);
+  text(scoreLeft, 30, 50); 
+  fill(255);
+  text(scoreRight, width-30, 50);
+}
   // Display the paddles and the ball
   leftPaddle.display();
   rightPaddle.display();
-  ball.display();
+ 
   //ADDED gun display methods
   leftGun.display();
   rightGun.display();
@@ -173,29 +196,9 @@ fill(55);
   
   //ADDED when one player reach score of 10, screen goes black and display these texts/Strings
   if (scoreLeft == 5) {
-    textSize(60);      
-    image(background,0,0);
-    background.resize(width,height);
-    fill(185,34,190);
-    text(Over, width/2, height/2);
-    textSize(30);
-    fill(55);
-    text(leftWin, width/2, height/2 + 40);
-    text(scoreLeft, width/2 - 50, height/2 +100);
-    fill(255);
-    text(scoreRight, width/2 + 50, height/2 +100);
+   text.playerLeftWin();
   } else if (scoreRight == 5) {
-    textSize(60);
-    image(background,0,0);
-    background.resize(width,height);
-    fill(185,34,190);
-    text(Over, width/2, height/2);
-    textSize(30);
-    fill(255);
-    text(rightWin, width/2, height/2 + 40);
-    text(scoreRight, width/2 + 50, height/2 +100);
-    fill(55);
-    text(scoreLeft, width/2 - 50, height/2 +100);
+ text.playerRightWin();
  
   }
 }
@@ -235,6 +238,13 @@ void keyPressed() {
     }
 }
 
+
+//ADDED if click space, game starts
+if(gameStart == false){
+  if(key == ' '){
+   gameStart=true; 
+  }
+}
 }
 
 
