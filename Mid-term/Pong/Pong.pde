@@ -67,7 +67,7 @@ void setup() {
   ball = new Ball(width/2, height/2, ' ');      //ADDED "space" key as the key to start moving the ball
   
   //ADDED gun class/ defines their arguments
-  leftGun = new Gun(LGx, LGy,10, 'g',55);
+  leftGun = new Gun(LGx, LGy,10, 'd',55);
   rightGun = new Gun(RGx, RGy,-10,'m',255);
 }
 
@@ -220,7 +220,7 @@ void keyPressed() {
   // the bullet vy stays 0 but its x moves to the other side of the screen
   if(LbulletMoving == false){   
     leftGun.vy = leftPaddle.vy; 
-    if(key == 'g'){
+    if(key == 'd'){
       LbulletMoving= true;
       leftGun.vy = 0;
       leftGun.vx = 10;
