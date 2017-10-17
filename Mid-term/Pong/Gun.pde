@@ -19,8 +19,7 @@ class Gun {   // ADDED Gun class
   
   color bulletColor;
   char shootKey;
-  char upKey;
-  char downKey;
+
 
 
   /////////////// Constructor ///////////////
@@ -30,15 +29,14 @@ class Gun {   // ADDED Gun class
   // Sets the position and controls based on arguments,
   // starts the velocity at 0
 
-  Gun(int _x, int _y,int _bulletSpeed, char _shootKey, char _upKey, char _downKey, color _bulletColor) {
+  Gun(int _x, int _y,int _bulletSpeed, char _shootKey, color _bulletColor) {
     x = _x;
     y = _y;
     
    bulletSpeed = _bulletSpeed;
    bulletColor = _bulletColor;
    
-   upKey = _upKey;
-   downKey = _downKey;
+
  
     
    shootKey = _shootKey;
@@ -52,18 +50,17 @@ class Gun {   // ADDED Gun class
   // update()
   //
   // Updates position based on velocity and constraints the gun to the window
-
   void update() {
     // Update position with velocity (so gun follows the paddle)
     x = x + vx;
-  
     y = y + vy;
-
     // Constrain gun's y position to be in the window
     y = constrain(y,0 + 35,height - 35);
    
    
   }
+
+
 
   // display()
   //
@@ -77,17 +74,19 @@ class Gun {   // ADDED Gun class
     rect(x, y, bWidth, bHeight);
   }
   
+  
+  
   //ADDED return method so the bull returns to the paddle when it hits the other side of the screen
   void resetL(){
-     x= 0; 
-    
+     x= 14; 
      vx = 0;
-    
   }
     void resetR(){
-     x= width; 
+     x= width-14; 
      vx = 0;
     }
+    
+    
     
     //ADDED the methods telling when the bullet goes off screen
 boolean OffScreenLeft() {   
@@ -98,7 +97,9 @@ boolean OffScreenLeft() {
   }
   
   
-  //ADDED keyPressed to shoot the bullet and to follow the paddles
+  
+  
+  //ADDED keyPressed to shoot the bullet 
   void keyPressed() {
     
     if (key == shootKey) {
@@ -108,29 +109,7 @@ boolean OffScreenLeft() {
       vx = -bulletSpeed;
       vy = 0;
     }
-        
-    if (key == upKey) {
-      
-      vy = -SPEED;
-    } 
-    else if (key == downKey) {
-      
-      vy = SPEED;
-    }
   }
-
-  
 
 //ADDED follow the paddles
-  void keyReleased() {
-  
-    if (key == upKey) {
-     
-      vy = 0;
-    }
-    else if (key == downKey) {
-      
-      vy = 0;
-    }
-  }
 }

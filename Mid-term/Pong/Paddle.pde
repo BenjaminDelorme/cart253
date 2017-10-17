@@ -16,14 +16,14 @@ class Paddle {
   int x;
   int y;
   int vx;
-  int vy;
+  int vy;  
   
   // The fill color of the paddle
   color paddleColor;
 
   // The characters used to make the paddle move up and down, defined in constructor
-  char upKey;
-  char downKey;
+  int upKey;
+  int downKey;
 
 
   /////////////// Constructor ///////////////
@@ -33,7 +33,7 @@ class Paddle {
   // Sets the position and controls based on arguments,
   // starts the velocity at 0
 
-  Paddle(int _x, int _y, char _upKey, char _downKey,color _paddleColor) {
+  Paddle(int _x, int _y, int _upKey, int _downKey,color _paddleColor) {
     x = _x;
     y = _y;
     vx = 0;
@@ -79,11 +79,11 @@ class Paddle {
   
   void keyPressed() {
     // Check if the key is our up key
-    if (key == upKey) {
+    if (keyCode == upKey) {
       // If so we want a negative y velocity
       vy = -SPEED;
     } // Otherwise check if the key is our down key 
-    else if (key == downKey) {
+    else if (keyCode == downKey) {
       // If so we want a positive y velocity
       vy = SPEED;
     }
@@ -95,11 +95,11 @@ class Paddle {
 
   void keyReleased() {
     // Check if the key is our up key and the paddle is moving up
-    if (key == upKey && vy < 0) {
+    if (keyCode == upKey && vy < 0) {
       // If so it should stop
       vy = 0;
     } // Otherwise check if the key is our down key and paddle is moving down 
-    else if (key == downKey && vy > 0) {
+    else if (keyCode == downKey && vy > 0) {
       // If so it should stop
       vy = 0;
     }
