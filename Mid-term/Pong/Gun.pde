@@ -18,7 +18,7 @@ class Gun {   // ADDED Gun class
   
   
   color bulletColor;
-  char shootKey;
+  int shootKey;
 
 
 
@@ -29,7 +29,7 @@ class Gun {   // ADDED Gun class
   // Sets the position and controls based on arguments,
   // starts the velocity at 0
 
-  Gun(int _x, int _y,int _bulletSpeed, char _shootKey, color _bulletColor) {
+  Gun(int _x, int _y,int _bulletSpeed, int _shootKey, color _bulletColor) {
     x = _x;
     y = _y;
     
@@ -102,10 +102,10 @@ boolean OffScreenLeft() {
   //ADDED keyPressed to shoot the bullet 
   void keyPressed() {
     
-    if (key == shootKey) {
+    if (keyCode == shootKey) {
       vx = bulletSpeed;
       vy = 0;
-    } else if (key == shootKey){
+    } else if (keyCode == shootKey){
       vx = -bulletSpeed;
       vy = 0;
     }

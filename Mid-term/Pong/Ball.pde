@@ -52,6 +52,7 @@ class Ball {
     // First update the location based on the velocity (so the ball moves)
     x += vx;
     y += vy;
+  
 
     // Check if the ball is going off the top of bottom
     if (y - SIZE/2 < 0 || y + SIZE/2 > height) {
@@ -112,7 +113,7 @@ class Ball {
         x = paddle.x - paddle.WIDTH/2 - SIZE/2;
       }
       // And make it bounce
-      vx = -vx;
+      vx = -vx- floor(random(1,4));  //CHANGED when collide, ball vy changes to a random number between 1 and 4 more than OG speed (makes bounce more surprising)
     }
   }
 
@@ -134,7 +135,7 @@ class Ball {
   void keyPressed(){
    if (key == space){
      vx = SPEED;
-     vy = SPEED;
+     vy = SPEED + floor(random(1,4)); //CHANGED when start (press space), ball vy start to a random number between 1 and 4 more than OG speed (makes bounce more surprising)
   }
   }
 }

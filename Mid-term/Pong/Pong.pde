@@ -68,7 +68,7 @@ void setup() {
   
   //ADDED gun class/ defines their arguments
   leftGun = new Gun(LGx, LGy,10, 'd',55);
-  rightGun = new Gun(RGx, RGy,-10,'m',255);
+  rightGun = new Gun(RGx, RGy,-10,37,255);
 }
 
 
@@ -228,7 +228,7 @@ void keyPressed() {
   }
    if(RbulletMoving == false){
     rightGun.vy = rightPaddle.vy;
-    if(key == 'm'){
+    if(keyCode == 37){
       RbulletMoving= true;
       rightGun.vy = 0;
       rightGun.vx = -10;
