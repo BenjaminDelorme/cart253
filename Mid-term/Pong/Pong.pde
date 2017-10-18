@@ -1,4 +1,4 @@
-// Pong
+// Bullet Pong
 
 // Global variables for the paddles and the ball
 Paddle leftPaddle;
