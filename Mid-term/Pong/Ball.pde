@@ -6,7 +6,8 @@ class Ball {
   /////////////// Properties ///////////////
 
 
-  int SPEED = 5;
+  int SPEED = 7;
+
   int SIZE = 16;
 
   int x;
@@ -113,7 +114,9 @@ class Ball {
         x = paddle.x - paddle.WIDTH/2 - SIZE/2;
       }
       // And make it bounce
-      vx = -vx- floor(random(1,4));  //CHANGED when collide, ball vy changes to a random number between 1 and 4 more than OG speed (makes bounce more surprising)
+      vx = -vx;  //CHANGED when collide, ball vy changes to a random number between 1 and 4 more than OG speed (makes bounce more surprising)
+     vy = floor(random(-6,6));
+      SPEED = 7;
     }
   }
 
@@ -134,8 +137,9 @@ class Ball {
   // ADDED need to press "space" for the ball to start moving
   void keyPressed(){
    if (key == space){
+    
      vx = SPEED;
-     vy = SPEED + floor(random(1,4)); //CHANGED when start (press space), ball vy start to a random number between 1 and 4 more than OG speed (makes bounce more surprising)
+     vy = floor(random(-6,6)); //CHANGED when start (press space), ball vy start to a random number between 1 and 4 more than OG speed (makes bounce more surprising)
     
   }
   }

@@ -34,6 +34,7 @@ int RPy = 540/2;
 int LPx = width-8;
 int LPy = 540/2;
 
+int frame;
 
 int RGx= 720-14;
 int RGy= 270;
@@ -49,6 +50,12 @@ int scoreRight = 0; //ADDED right score variable
 String leftWin= "Left Player Won";
 String rightWin= "Right Player Won";
 
+
+//ADDED timer variables
+
+  int timerR = 0;
+  int timerL = 0;
+  int timerLength = 1500;
 
 
 PImage background; //ADDED PImage to declare an image with background name
@@ -114,12 +121,16 @@ void draw() {
   // Check if the ball has collided with either paddle
   //CHANGED ball.collide only apply is paddle.Hit is false(is the paddle isn't hit by a bullet)/
   //seperated the two
+  
+  //CHANGED added the boolean function, that way when the paddle "revive", their propreties return
   if(RpaddleHit == false){
   ball.collide(rightPaddle);
+  rightPaddle.paddleColor = color (30,69,0);
   }
   
   if(LpaddleHit == false){
     ball.collide(leftPaddle);
+    leftPaddle.paddleColor = color (113,3,3);
   }
 
 //ADDED a function to track if the ball is moving or not
@@ -130,17 +141,18 @@ if(ball.vx != 0){
 }
 
 
-//ADDED these happen if left bullet hits right paddle
- if(leftGun.x >= width - 14 && leftGun.y >= rightPaddle.y-35 && leftGun.y <= rightPaddle.y+35){
-   rightPaddle.RpaddleHit();  
-   RpaddleHit = true;
- }
+
+
  
- //ADDED these happen if right bullet hits left paddle
- if(rightGun.x <= 14 && rightGun.y >= leftPaddle.y-35 && rightGun.y <= leftPaddle.y+35){
-  leftPaddle.LpaddleHit();
-  LpaddleHit = true;
- }
+
+handleBullets();
+
+ 
+ 
+ //////////OFF SCREEN //////////
+ 
+ 
+ 
  
  
  
@@ -153,12 +165,12 @@ if(ball.vx != 0){
   if (ball.OffScreenRight()) {                                      
     ball.reset();
     scoreLeft ++;
-    ball.SPEED = -5; //ADDED if right player loses round, next round starts with ball against ennemy
+    ball.SPEED = -8; //ADDED if right player loses round, next round starts with ball against ennemy
   }
   if (ball.OffScreenLeft()) {
     ball.reset();
     scoreRight++;
-    ball.SPEED = 5; //ADDED if left player loses round, next round starts with ball against ennemy
+    ball.SPEED = 8; //ADDED if left player loses round, next round starts with ball against ennemy
    
   }  
   
@@ -177,6 +189,10 @@ if(ball.vx != 0){
    }
 
 
+
+
+ //////////START //////////
+
 //ADDED if the game hasn't  started, text from Intro class will be displayed
 if (gameStart == false){
  text.introText();
@@ -194,6 +210,13 @@ fill(113,3,3);
   fill(30,69,0);
   text(scoreRight, width-30, 50);
 }
+
+
+
+ //////////DISPLAYS //////////
+ 
+ 
+ 
   // Display the paddles and the ball
   leftPaddle.display();
   rightPaddle.display();
@@ -204,23 +227,66 @@ fill(113,3,3);
   
   
   
+  
+   //////////SCORE //////////
+  
   //ADDED when one player reach score of 10, screen goes black and display these texts/Strings
-  if (scoreLeft == 1) {
+  if (scoreLeft == 5 ) {
    text.playerLeftWin();
-  } else if (scoreRight == 1) {
+  } else if (scoreRight == 5) {
  text.playerRightWin();
  
   }
 }
 
 
+void handleBullets(){
+ 
 
-// keyPressed()
+
+//ADDED these happen if left bullet hits right paddle
+ if(leftGun.x >= width - 14 && leftGun.y >= rightPaddle.y-35 && leftGun.y <= rightPaddle.y+35){
+   rightPaddle.RpaddleHit();  
+   RpaddleHit = true;
+   timerR = millis();
+
+   
+ }
+ 
+ 
+ 
+ //ADDED these happen if right bullet hits left paddle
+ if(rightGun.x <= 14 && rightGun.y >= leftPaddle.y-35 && rightGun.y <= leftPaddle.y+35){
+  leftPaddle.LpaddleHit();
+  LpaddleHit = true;
+  timerL = millis();
+ }
+ 
+ 
+ 
+ 
+ if(RpaddleHit == true && millis() - timerR >= timerLength){
+  RpaddleHit = false; 
+ }
+ 
+ if(LpaddleHit == true && millis() - timerL >= timerLength){
+  LpaddleHit = false; 
+ }
+  
+}
+
+
+
+
+ //////////KEYPRESSED //////////
+ 
+ // keyPressed()
 //
 // The paddles need to know if they should move based on a keypress
 // so when the keypress is detected in the main program we need to
 // tell the paddles
 
+ 
 void keyPressed() {
 
   leftPaddle.keyPressed();
@@ -262,6 +328,7 @@ if(gameStart == false){
 
 
 
+//////////KEYRELEASED //////////
 // keyReleased()
 //
 // As for keyPressed, except for released!
