@@ -1,5 +1,6 @@
 class Text{
 void introText(){
+  
 String Title = "Bullet Pong";
 String HowTo = "How to play";
 String LeftP = "Left Player";
@@ -23,14 +24,14 @@ String win = "First to 5 wins";
 
   //Title
  textAlign(CENTER);
- textSize(60);
- fill(185,34,190);
- text(Title, width/2, 70);
- 
+ textSize(80);
+ fill(179,134,0);
+ text(Title, width/2, 90);
+ stroke(0,20);
  //How to play
- textSize(30);
+ textSize(35);
  fill(0);
- text(HowTo, width/2, 140);
+ text(HowTo, width/2, 160);
  //space to start
  text(start,width/2,490);
  //how to win
@@ -42,14 +43,14 @@ String win = "First to 5 wins";
  //Player left
 textAlign(LEFT);
 
-fill(55);
+fill(113,3,3);
 textSize(26);
-text(LeftP,width/4, 230);
+text(LeftP,width/4 - 80, 240);
 
 textSize(15);
-text(UpL,width/4, 280);
-text(DownL,width/4, 300);
-text(ShootL,width/4, 320);
+text(UpL,width/4 - 80, 280);
+text(DownL,width/4 - 80, 300);
+text(ShootL,width/4 - 80, 320);
 
 
 
@@ -58,44 +59,45 @@ text(ShootL,width/4, 320);
  //Player right
 textAlign(LEFT);
 
-fill(255);
+fill(30,69,0);
 textSize(26);
-text(RightP,width/2 + 30, 230);
+text(RightP,width/2 + 120, 240);
 
 textSize(15);
-text(UpR,width/2 + 30, 280);
-text(DownR,width/2 + 30, 300);
-text(ShootR,width/2 + 30, 320);
+text(UpR,width/2 + 120, 280);
+text(DownR,width/2 + 120, 300);
+text(ShootR,width/2 + 120, 320);
 }
 
-
+//Left Player won
 void playerLeftWin(){
   textAlign(CENTER);
- textSize(60);      
-    image(background,0,0);
-    background.resize(width,height);
-    fill(185,34,190);
+ textSize(70);      
+    image(background,-25,-15);
+    background.resize(width +50,height +30);
+    fill(179,134,0);
     text(Over, width/2, height/2);
-    textSize(30);
-    fill(55);
-    text(leftWin, width/2, height/2 + 40);
-    text(scoreLeft, width/2 - 50, height/2 +100);
-    fill(255);
-    text(scoreRight, width/2 + 50, height/2 +100);  
+    textSize(40);
+    fill(113,3,3);
+    text(leftWin, width/2, height/2 + 80);
+    text(scoreLeft, width/2 - 50, height/2 +130);
+    fill(30,69,0);
+    text(scoreRight, width/2 + 50, height/2 +130);  
 }
 
+//Right Player won
 void playerRightWin(){
   textAlign(CENTER);
-   textSize(60);
-    image(background,0,0);
-    background.resize(width,height);
-    fill(185,34,190);
+   textSize(70);
+    image(background,-25,-15);
+    background.resize(width +50,height +30);
+    fill(179,134,0);
     text(Over, width/2, height/2);
-    textSize(30);
-    fill(255);
-    text(rightWin, width/2, height/2 + 40);
-    text(scoreRight, width/2 + 50, height/2 +100);
-    fill(55);
-    text(scoreLeft, width/2 - 50, height/2 +100);
+    textSize(40);
+    fill(30,69,0);
+    text(rightWin, width/2, height/2 + 80);
+    text(scoreRight, width/2 + 50, height/2 +130);
+    fill(113,3,3);
+    text(scoreLeft, width/2 - 50, height/2 +130);
 }
 }

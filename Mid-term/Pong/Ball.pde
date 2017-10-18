@@ -15,7 +15,7 @@ class Ball {
   int vx;
   int vy;
 
-  color ballColor = color(185,34,190);
+  color ballColor = color(179,134,0);
   char space;   // ADDED "space as a propretie to use later
 
 
@@ -71,7 +71,7 @@ class Ball {
     y = height/2;
     vx = 0;
     vy = 0;
-   SPEED = -SPEED;       // ADDED ball swich side everytime the ball resets
+          // ADDED ball swich side everytime the ball resets
   }
   
   // isOffScreen()
@@ -123,7 +123,7 @@ class Ball {
 
   void display() {
     // Set up the appearance of the ball (no stroke, a fill, and rectMode as CENTER)
-    noStroke();
+    stroke(0);
     fill(ballColor);
     rectMode(CENTER);
 
@@ -136,6 +136,7 @@ class Ball {
    if (key == space){
      vx = SPEED;
      vy = SPEED + floor(random(1,4)); //CHANGED when start (press space), ball vy start to a random number between 1 and 4 more than OG speed (makes bounce more surprising)
+    
   }
   }
 }

@@ -66,7 +66,7 @@ class Paddle {
   
   void display() {
     // Set display properties
-    noStroke();
+    stroke(0);
     fill(paddleColor);
     rectMode(CENTER);
     
@@ -75,11 +75,11 @@ class Paddle {
   }
   
   void RpaddleHit(){
-   paddleColor = color(255,50); 
+   paddleColor = color (30,69,0,50); 
   }
   
   void LpaddleHit(){
-    paddleColor = color(55,50);
+    paddleColor = color (113,3,3,50);
   }
 
   // keyPressed()

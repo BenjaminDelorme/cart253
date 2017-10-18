@@ -24,6 +24,9 @@ boolean RbulletMoving = false;
 boolean RpaddleHit = false;
 boolean LpaddleHit = false;
 
+//ADDED a boolean to track if  the ball is moving or not
+boolean ballMoving;
+
 
 // The distance from the edge of the window a paddle should be
 int RPx = 8;
@@ -68,14 +71,14 @@ void setup() {
   // Also pass through the two keys used to control 'up' and 'down' respectively
   // NOTE: On a mac you can run into trouble if you use keys that create that popup of
   // different accented characters in text editors (so avoid those if you're changing this)
-  leftPaddle = new Paddle(RPx, RPy, 87, 83, 55);
-  rightPaddle = new Paddle(width - RPx, LPy, 38 , 40,255);
+  leftPaddle = new Paddle(RPx, RPy, 87, 83, color (113,3,3));
+  rightPaddle = new Paddle(width - RPx, LPy, 38 , 40,color (30,69,0));
 
   ball = new Ball(width/2, height/2, ' ');      //ADDED "space" key as the key to start moving the ball
   
   //ADDED gun class/ defines their arguments
-  leftGun = new Gun(LGx, LGy,10, 'd',55);
-  rightGun = new Gun(RGx, RGy,-10,37,255);
+  leftGun = new Gun(LGx, LGy,10, 'd',color (113,3,3));
+  rightGun = new Gun(RGx, RGy,-10,37,color (30,69,0));
   
   text = new Text();
 }
@@ -84,8 +87,9 @@ void setup() {
 
 void draw() {
   // ADDED the background image in the draw, resized-it so it would fit the screen
-  image(background,0,0); 
-  background.resize(width,height);
+  image(background,-25,-15); 
+  
+  background.resize(width +50,height +30);
 
 
 
@@ -118,7 +122,12 @@ void draw() {
     ball.collide(leftPaddle);
   }
 
-
+//ADDED a function to track if the ball is moving or not
+if(ball.vx != 0){
+  ballMoving = true;
+} else {
+ ballMoving = false; 
+}
 
 
 //ADDED these happen if left bullet hits right paddle
@@ -144,11 +153,12 @@ void draw() {
   if (ball.OffScreenRight()) {                                      
     ball.reset();
     scoreLeft ++;
-  
+    ball.SPEED = -5; //ADDED if right player loses round, next round starts with ball against ennemy
   }
   if (ball.OffScreenLeft()) {
     ball.reset();
     scoreRight++;
+    ball.SPEED = 5; //ADDED if left player loses round, next round starts with ball against ennemy
    
   }  
   
@@ -179,9 +189,9 @@ if(gameStart==true){
    
     //ADDED score display
     textSize(30);
-fill(55);
+fill(113,3,3);
   text(scoreLeft, 30, 50); 
-  fill(255);
+  fill(30,69,0);
   text(scoreRight, width-30, 50);
 }
   // Display the paddles and the ball
@@ -195,9 +205,9 @@ fill(55);
   
   
   //ADDED when one player reach score of 10, screen goes black and display these texts/Strings
-  if (scoreLeft == 5) {
+  if (scoreLeft == 1) {
    text.playerLeftWin();
-  } else if (scoreRight == 5) {
+  } else if (scoreRight == 1) {
  text.playerRightWin();
  
   }
@@ -215,8 +225,11 @@ void keyPressed() {
 
   leftPaddle.keyPressed();
   rightPaddle.keyPressed();
+  
+  //CHANGED/ADDED use ballMoving boolean, that way, can't use the space method on ball if it's already moving
+  if(ballMoving == false){
   ball.keyPressed();     // ADDED press "space" to make the ball move when start a new round
-  //ADDED gun keyPressed methods
+  }
   
   
   //ADDED  if shoot key is not pressed, bullet follows thr paddle. If pressed,
