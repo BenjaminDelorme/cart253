@@ -56,6 +56,9 @@ void draw() {
   for (int i = 0; i < bouncers.length; i++) {
    bouncers[i].update();
    bouncers[i].display();
+   if (dist(brightestPixel.x,brightestPixel.y,bouncers[i].x,bouncers[i].y) <= 45){
+   background(255); 
+  }
   }
   
   // For now we just draw a crappy ellipse at the brightest pixel
@@ -63,6 +66,9 @@ void draw() {
   stroke(#ffff00);
   strokeWeight(10);
   ellipse(brightestPixel.x,brightestPixel.y,20,20);
+  
+  
+ 
 }
 
 // handleVideoInput
