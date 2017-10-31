@@ -77,6 +77,11 @@ class Bouncer {
   void display() {
     noStroke();
     fill(fillColor);
-    ellipse(x, y, size, size);
+    image(sheep,x,y,size,size);
+  }
+   void displayDead() {
+    noStroke();
+    fill(fillColor);
+    image(dead,x,y,size,size);
   }
 }
