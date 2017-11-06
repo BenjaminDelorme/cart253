@@ -10,8 +10,8 @@ PImage dead;
 PImage wolf;
 PImage bg;
 
-boolean sheepAlive;
-boolean sheepDead;
+//boolean sheepAlive;
+//boolean sheepDead;
 // The capture object for reading from the webcam
 Capture video;
 
@@ -73,21 +73,9 @@ void draw() {
   // If the brightness (or other video property) is going to interact with all the
   // Bouncers, it will need to happen in here.
   for (int i = 0; i < bouncers.length; i++) {
-
-
-    if (sheepAlive== true) {
-      bouncers[i].display();
-    } 
-    if (sheepAlive== false) {
-      bouncers[i].displayDead();
-    }
-
-
     bouncers[i].display();
     bouncers[i].update();
-    sheepAlive = true;
-
-
+    //sheepAlive = true;
 
 
     // if wolf is on sheep, the sheep stops moving 
@@ -95,12 +83,12 @@ void draw() {
 
       bouncers[i].vx = 0;
       bouncers[i].vy = 0;
-      sheepAlive = false;
+      //sheepAlive = false;
+      bouncers[i].displayDead();
 
 
 
-
-      ///////////////////////////////////////////////////////////////////////////   :(
+     //ADDED sheep try to run away if near the wolf
     }
 
     if (dist(brightestPixel.x, brightestPixel.y, bouncers[i].x, bouncers[i].y) <= 200) {
@@ -111,7 +99,7 @@ void draw() {
 
 
 
-    ///////////////////////////////////////////////////////////////////////////   :(
+   
   }
 
   image(wolf, brightestPixel.x, brightestPixel.y);
