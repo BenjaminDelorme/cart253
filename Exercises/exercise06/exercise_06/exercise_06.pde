@@ -29,11 +29,15 @@ Bouncer[] bouncers = new Bouncer[40];
 
 void setup() {
   size(640, 480);
-  
-sheep = loadImage("sheep.png");
-dead = loadImage("dead.png");
-wolf = loadImage("wolf.png");
-bg = loadImage("grass.jpg");
+rectMode(CENTER);
+
+  sheep = loadImage("sheep.png");
+  dead = loadImage("dead.png");
+  wolf = loadImage("wolf.png");
+  bg = loadImage("grass.jpg");
+
+
+  frameRate(40);
   // Our old friend the for-loop used to go through the length of an
   // array adding new objects to it (Bouncers in this case)
   for (int i = 0; i < bouncers.length; i++) {
@@ -57,14 +61,11 @@ void draw() {
   handleVideoInput();
 
   // Draw the video frame to the screen
-  
-  
-  
-  ///////////////////////////////////////////////////////////////////////////   :(
-  
-  
-  background(0);
-  image(bg,640,480);
+
+
+  image(bg, 0, 0);
+  bg.resize(640, 480);
+  //background(250);
   // image(video, 0, 0);
 
   // Our old friend the for-loop running through the length of an array to
@@ -72,47 +73,48 @@ void draw() {
   // If the brightness (or other video property) is going to interact with all the
   // Bouncers, it will need to happen in here.
   for (int i = 0; i < bouncers.length; i++) {
-    
- 
 
-   bouncers[i].display();
+
+    if (sheepAlive== true) {
+      bouncers[i].display();
+    } 
+    if (sheepAlive== false) {
+      bouncers[i].displayDead();
+    }
+
+
+    bouncers[i].display();
     bouncers[i].update();
-   
-
-if(brightestPixel.x >= bouncers[i].x -30 && brightestPixel.x <= bouncers[i].x +30 && brightestPixel.y <= bouncers[i].y +30 && brightestPixel.y >= bouncers[i].y -30 ){
-  
-  bouncers[i].vx = 0;
-  bouncers[i].vy = 0;
-  bouncers[i].displayDead(); 
+    sheepAlive = true;
 
 
 
 
+    // if wolf is on sheep, the sheep stops moving 
+    if (brightestPixel.x >= bouncers[i].x -30 && brightestPixel.x <= bouncers[i].x +30 && brightestPixel.y <= bouncers[i].y +30 && brightestPixel.y >= bouncers[i].y -30 ) {
+
+      bouncers[i].vx = 0;
+      bouncers[i].vy = 0;
+      sheepAlive = false;
 
 
-///////////////////////////////////////////////////////////////////////////   :(
- 
 
-   
-}
 
-    //if (dist(brightestPixel.x, brightestPixel.y, bouncers[i].x, bouncers[i].y) <= 155) {
-    //  bouncers[i].vx = - bouncers[i].vx;
-    //  bouncers[i].vy = - bouncers[i].vy;
-    //}
-    
-    
-    
-    
-///////////////////////////////////////////////////////////////////////////   :(
+      ///////////////////////////////////////////////////////////////////////////   :(
+    }
+
+    if (dist(brightestPixel.x, brightestPixel.y, bouncers[i].x, bouncers[i].y) <= 200) {
+      //bouncers[i].vx = - bouncers[i].vx;
+      bouncers[i].vx = -bouncers[i].vx;
+    }
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////////   :(
   }
 
-
-  // For now we just draw a crappy ellipse at the brightest pixel // CHANGED not anymore hehehe
-  fill(#ff0000);
-  stroke(#ffff00);
-  strokeWeight(10);
- image(wolf,brightestPixel.x, brightestPixel.y);
+  image(wolf, brightestPixel.x, brightestPixel.y);
 }
 
 // handleVideoInput

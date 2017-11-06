@@ -79,6 +79,7 @@ class Bouncer {
     fill(fillColor);
     image(sheep,x,y,size,size);
   }
+  
    void displayDead() {
     noStroke();
     fill(fillColor);
