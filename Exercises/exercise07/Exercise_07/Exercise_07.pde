@@ -11,8 +11,8 @@ SoundFile toneClap;
 PImage drum;
 
 void setup() {
-  loadImage("images/drum");
-  background(drum);
+  size(846,507);
+  drum = loadImage("images/Drum.png");
   toneKick = new SoundFile(this, "sounds/kick.wav");
   toneSnare = new SoundFile(this, "sounds/snare.wav");
   toneHihat = new SoundFile(this, "sounds/hihat.wav");
@@ -24,6 +24,7 @@ void setup() {
   toneClap = new SoundFile(this, "sounds/clap.wav");
 }
 void draw() {
+   image(drum,0,0);
 }
 void keyPressed() {
   
