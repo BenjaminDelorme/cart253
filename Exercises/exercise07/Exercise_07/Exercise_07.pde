@@ -22,3 +22,25 @@ void setup() {
 }
 void draw() {
 }
+void keyPressed() {
+  
+   if(keyCode == 32){ //Space 
+    toneKick.play();
+  }if(keyCode == 77){ // M
+    toneSnare.play(); 
+  }if(keyCode == 79){ //O
+    toneHihat.play();
+  }if(keyCode == 80){ //P
+    toneHihatOpen.play();
+  }if(keyCode == 75){ //K
+    toneTom1.play();
+  }if(keyCode == 76){ //L
+    toneTom2.play();
+  }if(keyCode == 85){ //U
+    toneRide.play();
+  }if(keyCode == 73){ //I
+    toneCrash.play();
+  }if(keyCode == 78){ //N
+    toneClap.play();
+  }
+}
