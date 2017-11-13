@@ -10,7 +10,7 @@ SoundFile toneCrash;
 SoundFile toneClap;
 
 PImage drum;
-
+int opacity = 80;
 //int timer = 0;
 //boolean timerRunning = false;
 //int timerLength = 550;
@@ -27,9 +27,10 @@ void setup() {
   toneRide = new SoundFile(this, "sounds/ride.wav");
   toneCrash = new SoundFile(this, "sounds/crash.wav");
   toneClap = new SoundFile(this, "sounds/clap.wav");
+  
 }
 void draw() {
-   image(drum,0,0);
+     image(drum,0,0);
    //if(timerRunning == true && millis() - timer >= timerLength){
    // timerRunning =false;
    //}
@@ -42,6 +43,8 @@ void keyPressed() {
     noStroke();
     fill(255,0,0);
     rect(414,247,30,150);
+    
+    
   }
   if(keyCode == 77){ // M
     toneSnare.play();
@@ -77,6 +80,7 @@ void keyPressed() {
     ellipse(513,137,140,140);
   }
   if(keyCode == 73){ //U
+  image(drum,0,0);
     toneRide.play();
     noStroke();
     fill(204,234,6);
