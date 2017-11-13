@@ -55,7 +55,7 @@ String rightWin= "Right Player Won";
 
   int timerR = 0;
   int timerL = 0;
-  int timerLength = 1500;
+  int timerLength = 1250;
 
 
 PImage background; //ADDED PImage to declare an image with background name

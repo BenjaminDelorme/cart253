@@ -8,7 +8,12 @@ SoundFile toneTom2;
 SoundFile toneRide;
 SoundFile toneCrash;
 SoundFile toneClap;
+
 PImage drum;
+
+//int timer = 0;
+//boolean timerRunning = false;
+//int timerLength = 550;
 
 void setup() {
   size(846,507);
@@ -25,31 +30,69 @@ void setup() {
 }
 void draw() {
    image(drum,0,0);
+   //if(timerRunning == true && millis() - timer >= timerLength){
+   // timerRunning =false;
+   //}
 }
 void keyPressed() {
   
    if(keyCode == 32){ //Space 
     toneKick.play();
     toneKick.amp(0.5);
-  }if(keyCode == 77){ // M
-    toneSnare.play(); 
-  }if(keyCode == 79){ //O
+    noStroke();
+    fill(255,0,0);
+    rect(414,247,30,150);
+  }
+  if(keyCode == 77){ // M
+    toneSnare.play();
+    noStroke();
+    fill(26,172,57);
+    ellipse(258,287,170,170);
+  }
+  if(keyCode == 79){ //O
     toneHihat.play();
-  }if(keyCode == 80){ //P
+    noStroke();
+    fill(0,139,239);
+    ellipse(140,342,180,180); 
+  }
+  if(keyCode == 80){ //P
     toneHihatOpen.play();
     toneHihatOpen.amp(0.5);
-  }if(keyCode == 75){ //K
+    noStroke();
+    fill(0,139,239);
+    ellipse(140,342,180,180);
+  }
+  if(keyCode == 75){ //K
     toneTom1.play();
     toneTom1.amp(0.5);
-  }if(keyCode == 76){ //L
+     noStroke();
+    fill(221,146,1);
+    ellipse(680,305,210,210);
+  }
+  if(keyCode == 76){ //L
     toneTom2.play();
     toneTom2.amp(0.5);
-  }if(keyCode == 85){ //U
+    noStroke();
+    fill(143,26,233);
+    ellipse(513,137,140,140);
+  }
+  if(keyCode == 73){ //U
     toneRide.play();
-  }if(keyCode == 73){ //I
+    noStroke();
+    fill(204,234,6);
+    ellipse(677,115,225,225);
+  }
+  if(keyCode == 85){ //I
     toneCrash.play();
-  }if(keyCode == 78){ //N
+    noStroke();
+    fill(251,75,207);
+    ellipse(187,130,200,200);
+  }
+  if(keyCode == 78){ //N
     toneClap.play();
     toneClap.amp(0.5);
+    noStroke();
+    fill(33,209,161);
+    ellipse(348,137,140,140);
   }
 }
