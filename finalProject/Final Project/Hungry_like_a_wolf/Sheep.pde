@@ -3,26 +3,33 @@ class Sheep{
   float turnSpeed = 0;
  
 PImage sheep;
+boolean sheepAlive=true;
 
 float tx = random(0,100);
 float ty = random(0,100);
+float speed = 2;
 float x;
 float y;
-  Sheep() {
-  
+
+  Sheep(float tempX, float tempY) {
+  x = tempX;
+  y = tempY;
      sheep = loadImage("data/images/sheep.png");
 }
 
 
 
   void update() {
- x = width*noise(tx);
- y = width*noise(ty);
-    theta += turnSpeed;
+    float vx = speed * (noise(tx)*2-1);
+    float vy = speed * (noise(ty)*2-1);
+    x += vx;
+    y += vy;
+
+    //theta += turnSpeed;
     //x += cos(theta) * speed;
     //y += sin(theta) * speed;
-  tx += 0.002;
-  ty += 0.003;
+  tx += 0.01;
+  ty += 0.01;
     
     x = constrain(x,0+sheep.width,width-sheep.width);
     y = constrain(y,0+sheep.height,height-sheep.height);
@@ -31,9 +38,10 @@ float y;
 
   
   void display(){
+    if (sheepAlive){
     image(sheep, x, y);
     sheep.resize(35, 55);
-    
+    }
     //rectMode(CENTER);
     // pushMatrix();
     //translate(x, y);
@@ -43,8 +51,10 @@ float y;
     //popMatrix();
     
   }
- 
-
+  
+void dies(){
+  sheepAlive = false;
+}
 
   
   

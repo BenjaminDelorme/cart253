@@ -1,14 +1,16 @@
 Wolf wolf;
-Sheep sheep;
+Sheep[] sheep = new Sheep[20];
 PImage grass;
 
 
 
 void setup() {
-  //size(1000,1000);
-  fullScreen();
+  size(1000,1000);
+  //fullScreen();
   wolf = new Wolf(width/2,height/2);
-  sheep = new Sheep();
+  for (int i = 0; i < sheep.length; i++){
+  sheep[i] = new Sheep(width/2 +floor(noise(-500,500)) ,150-floor(random(-60,60)));
+  }
   grass = loadImage("data/images/grass.png");
 
 }
@@ -19,8 +21,12 @@ void draw() {
   wolf.update();
   wolf.y = constrain(wolf.y,0,height);
   
-  sheep.display();
-  sheep.update();
+  for (int i = 0; i<sheep.length; i++){
+  sheep[i].display();
+  sheep[i].update();
+  
+  }
+ 
 }
 
 

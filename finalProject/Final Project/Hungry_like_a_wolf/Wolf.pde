@@ -43,6 +43,11 @@ PImage wolfOG;
     
   }
  
+void wolfEat(){
+  
+}
+
+
 
   void keyPressed() {
     if(keyCode == 16){ //Shift
