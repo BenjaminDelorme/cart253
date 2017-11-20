@@ -5,10 +5,10 @@ PImage grass;
 
 
 void setup() {
-  size(1000,1000);
-  //fullScreen();
+  //size(1000,1000);
+  fullScreen();
   wolf = new Wolf(width/2,height/2);
-  sheep = new Sheep(100,200);
+  sheep = new Sheep();
   grass = loadImage("data/images/grass.png");
 
 }

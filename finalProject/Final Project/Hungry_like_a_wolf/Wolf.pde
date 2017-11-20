@@ -25,8 +25,9 @@ PImage wolfOG;
     x += cos(theta) * speed;
     y += sin(theta) * speed;
     x = constrain(x,0,width);
-    y = constrain(y,0+wolfOG.height,height);
-   // println(y);
+    y = constrain(y,0+wolfOG.height*2,height-wolfOG.height*2);
+    x= constrain(x,0+wolfOG.width,width-wolfOG.width);
+
   }
 
 
@@ -35,9 +36,6 @@ PImage wolfOG;
     rectMode(CENTER);
      pushMatrix();
     translate(x, y);
-   // println("translate x:" + x);
-     //   println("translate y:" + y);
-
     rotate(theta);
     image(wolfOG, 0, 0);
     wolfOG.resize(75, 25);
@@ -52,15 +50,15 @@ PImage wolfOG;
     } else if (keyCode == 17){ //Ctrl
       sneak = true;
     } else {
-    
+  
     }
     
     if (keyCode == UP) {
       walking = true;
     }  else if (keyCode == LEFT) {
-      turnSpeed = -0.05;
+      turnSpeed = -0.07;
     } else if (keyCode == RIGHT) {
-      turnSpeed = 0.05;
+      turnSpeed = 0.07;
     }
     
  
