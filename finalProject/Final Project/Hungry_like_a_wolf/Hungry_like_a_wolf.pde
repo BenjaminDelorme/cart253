@@ -18,6 +18,7 @@ void setup() {
 void draw() {
   image(grass,0,0);
   wolf.display();
+  wolf.hitBox();
   wolf.update();
   wolf.y = constrain(wolf.y,0,height);
   
@@ -25,6 +26,15 @@ void draw() {
   sheep[i].display();
   sheep[i].update();
   
+  //if( wolf.y >= sheep[i].y-10 && wolf.y <= sheep[i].y+10 && wolf.x >= sheep[i].x-50 && wolf.x <= sheep[i].x+50){
+  
+  // sheep[i].dies();
+  //}
+  
+  if(dist(wolf.x,wolf.y,sheep[i].x,sheep[i].y)<40){
+  
+   sheep[i].dies();
+  }
   }
  
 }

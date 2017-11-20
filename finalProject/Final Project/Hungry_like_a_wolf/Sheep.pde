@@ -39,7 +39,10 @@ float y;
   
   void display(){
     if (sheepAlive){
+      float hitBox = x+17;
+      float hitBoxY = y+17;
     image(sheep, x, y);
+    rect(hitBox,hitBoxY,15,15);
     sheep.resize(35, 55);
     }
     //rectMode(CENTER);
@@ -51,6 +54,8 @@ float y;
     //popMatrix();
     
   }
+  
+  
   
 void dies(){
   sheepAlive = false;

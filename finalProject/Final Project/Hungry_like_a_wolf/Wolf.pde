@@ -3,7 +3,7 @@ class Wolf {
   float speed = 0;
   float turnSpeed = 0;
 
-PImage wolfOG;
+PImage wolf;
 
   float x;
   float y;
@@ -11,10 +11,8 @@ PImage wolfOG;
    boolean sprint;
   boolean walking;
   Wolf(float tempX, float tempY) {
-    wolfOG = loadImage("data/images/wolf_2.png");
-    wolfOG.resize(75, 25);
-    println(wolfOG.height);
-    println(wolfOG.width);
+    wolf = loadImage("data/images/wolf_2.png");
+    wolf.resize(75, 25);
     x = tempX;
     y = tempY;  }
 
@@ -25,26 +23,37 @@ PImage wolfOG;
     x += cos(theta) * speed;
     y += sin(theta) * speed;
     x = constrain(x,0,width);
-    y = constrain(y,0+wolfOG.height*2,height-wolfOG.height*2);
-    x= constrain(x,0+wolfOG.width,width-wolfOG.width);
+    y = constrain(y,0,height);
+    x= constrain(x,0,width);
 
   }
 
 
   
   void display(){
-    rectMode(CENTER);
+    
      pushMatrix();
-    translate(x, y);
+     float hitBox= x;
+     float hitBoxY= y;
+     rectMode(CENTER);
+    translate(hitBox, hitBoxY);
     rotate(theta);
-    image(wolfOG, 0, 0);
-    wolfOG.resize(75, 25);
+    image(wolf, 0-wolf.width/2, 0-12);
+    wolf.resize(75, 25);
     popMatrix();
     
   }
  
-void wolfEat(){
+void hitBox(){
   
+  
+  rectMode(CENTER);
+     pushMatrix();
+    translate(x, y);
+    rotate(theta);
+      fill(0);
+     rect(0,0,15,15);
+    popMatrix();
 }
 
 
