@@ -1,18 +1,20 @@
 Wolf wolf;
 
 
-PImage wolf1;
+
 
 void setup() {
-  fullScreen();
-  wolf = new Wolf();
-  wolf1 = loadImage("data/images/wolf1.png");
+  size(1000,1000);
+  //fullScreen();
+  wolf = new Wolf(width/2,height/2);
+
 }
 
 void draw() {
   background(255);
-  wolf.update();
   wolf.display();
+  wolf.update();
+  wolf.y = constrain(wolf.y,0,height);
 }
 
 

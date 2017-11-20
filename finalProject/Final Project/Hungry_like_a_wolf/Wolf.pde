@@ -3,14 +3,16 @@ class Wolf {
   float speed = 0;
   float turnSpeed = 0;
 
+PImage wolfOG;
+
   float x;
   float y;
   boolean sneak;
   boolean walking;
-  Wolf() {
-    x = width/2;
-    y = height/2;
-  }
+  Wolf(float tempX, float tempY) {
+    wolfOG = loadImage("data/images/wolf_1.png");
+    x = tempX;
+    y = tempY;  }
 
 
 
@@ -18,18 +20,22 @@ class Wolf {
     theta += turnSpeed;
     x += cos(theta) * speed;
     y += sin(theta) * speed;
+    x = constrain(x,0,width);
+    y = constrain(y,0,height);
   }
 
-  void display() {
 
-    pushMatrix();
+  
+  void display(){
+    rectMode(CENTER);
+     pushMatrix();
     translate(x, y);
     rotate(theta);
-    image(wolf1, 0, 0);
-    wolf1.resize(75, 25);
+    image(wolfOG, 0, 0);
+    wolfOG.resize(75, 25);
     popMatrix();
+    
   }
-  
  
 
   void keyPressed() {
