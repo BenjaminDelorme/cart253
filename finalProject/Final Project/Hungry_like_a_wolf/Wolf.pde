@@ -8,9 +8,13 @@ PImage wolfOG;
   float x;
   float y;
   boolean sneak;
+   boolean sprint;
   boolean walking;
   Wolf(float tempX, float tempY) {
-    wolfOG = loadImage("data/images/wolf_1.png");
+    wolfOG = loadImage("data/images/wolf_2.png");
+    wolfOG.resize(75, 25);
+    println(wolfOG.height);
+    println(wolfOG.width);
     x = tempX;
     y = tempY;  }
 
@@ -21,7 +25,8 @@ PImage wolfOG;
     x += cos(theta) * speed;
     y += sin(theta) * speed;
     x = constrain(x,0,width);
-    y = constrain(y,0,height);
+    y = constrain(y,0+wolfOG.height,height);
+   // println(y);
   }
 
 
@@ -30,6 +35,9 @@ PImage wolfOG;
     rectMode(CENTER);
      pushMatrix();
     translate(x, y);
+   // println("translate x:" + x);
+     //   println("translate y:" + y);
+
     rotate(theta);
     image(wolfOG, 0, 0);
     wolfOG.resize(75, 25);
@@ -39,20 +47,35 @@ PImage wolfOG;
  
 
   void keyPressed() {
+    if(keyCode == 16){ //Shift
+      sprint = true;
+    } else if (keyCode == 17){ //Ctrl
+      sneak = true;
+    } else {
+    
+    }
+    
     if (keyCode == UP) {
-      speed = 3.2;
       walking = true;
-    } else if (keyCode == LEFT) {
+    }  else if (keyCode == LEFT) {
       turnSpeed = -0.05;
     } else if (keyCode == RIGHT) {
       turnSpeed = 0.05;
     }
-
-    if (keyCode == 16 && walking == true) {
+    
+ 
+    
+     if (walking == true && sprint) { 
       speed = 6;
-    } else if ((keyCode == 17&& walking == true)) {
+    } else if (walking == true && sneak) {
       speed = 1.3;
+    } else if (walking == true){
+      speed = 3.2;
     }
+    
+
+
+   
   }
 
   void keyReleased() {
@@ -64,11 +87,11 @@ PImage wolfOG;
     } else if (keyCode == RIGHT) {
       turnSpeed = 0;
     }
-
-    if (keyCode == 16 && walking == true) {
-      speed = 3.2;
-    } else if ((keyCode == 17&& walking == true)) {
-      speed = 3.2;
+    
+    if(keyCode == 16){
+      sprint = false;
+    } else if (keyCode == 17){
+      sneak = false;
     }
   }
 }
