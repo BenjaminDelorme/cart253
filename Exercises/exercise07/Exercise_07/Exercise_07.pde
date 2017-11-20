@@ -1,4 +1,5 @@
 import processing.sound.*;
+
 SoundFile toneKick;
 SoundFile toneSnare;
 SoundFile toneHihat;
@@ -9,11 +10,12 @@ SoundFile toneRide;
 SoundFile toneCrash;
 SoundFile toneClap;
 
+HighPass highpass;
+
 PImage drum;
 int opacity = 80;
-//int timer = 0;
-//boolean timerRunning = false;
-//int timerLength = 550;
+
+
 
 void setup() {
   size(846,507);
@@ -27,19 +29,28 @@ void setup() {
   toneRide = new SoundFile(this, "sounds/ride.wav");
   toneCrash = new SoundFile(this, "sounds/crash.wav");
   toneClap = new SoundFile(this, "sounds/clap.wav");
+  highpass = new HighPass(this);
+ 
   
 }
 void draw() {
      image(drum,0,0);
-   //if(timerRunning == true && millis() - timer >= timerLength){
-   // timerRunning =false;
-   //}
 }
+
+
 void keyPressed() {
-  
+  if(keyCode == 17 && keyCode == 32){
+   toneKick.play();
+    highpass.process(toneKick,5000);
+    toneKick.amp(0.7);
+    noStroke();
+    fill(255,0,0);
+    rect(414,247,30,150);
+  }
    if(keyCode == 32){ //Space 
     toneKick.play();
-    toneKick.amp(0.5);
+   
+    toneKick.amp(0.7);
     noStroke();
     fill(255,0,0);
     rect(414,247,30,150);
@@ -80,7 +91,6 @@ void keyPressed() {
     ellipse(513,137,140,140);
   }
   if(keyCode == 73){ //U
-  image(drum,0,0);
     toneRide.play();
     noStroke();
     fill(204,234,6);
