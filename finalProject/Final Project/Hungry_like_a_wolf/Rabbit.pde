@@ -48,11 +48,16 @@ float vy;
   }
  
   void runAway(){
-   if (dist(wolf.x, wolf.y, x,y)<80) {
+   if (dist(wolf.x, wolf.y, x,y)<80 && wolf.sneak == false) {
       vx= - vx;
       vy = -vy;
-      speed = 8;
-    } else{
+      speed = 10;
+    } else if 
+    (dist(wolf.x, wolf.y, x,y)<30) {
+      vx= - vx;
+      vy = -vy;
+      speed = 12;
+  }else{
       speed = 1;
     }
     
