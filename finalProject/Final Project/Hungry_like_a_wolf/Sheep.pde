@@ -31,7 +31,7 @@ float y;
   tx += 0.01;
   ty += 0.01;
     x = constrain(x,265+sheep.width,690-sheep.width);
-    y = constrain(y,0+sheep.height,335-sheep.height);
+    y = constrain(y,20,335-sheep.height);
     
     //if(x<265+sheep.width || x>690-sheep.width){
     // vx = -vx; 

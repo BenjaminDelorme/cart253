@@ -59,6 +59,8 @@ void hitBox(){
 
 
   void keyPressed() {
+    
+    
     if(keyCode == 16){ //Shift
       sprint = true;
     } else if (keyCode == 17){ //Ctrl
@@ -77,12 +79,14 @@ void hitBox(){
     
  
     
-     if (walking == true && sprint) { 
+     if (walking == true && sprint==true) { 
       speed = 6;
-    } else if (walking == true && sneak) {
-      speed = 1.3;
+    } else if (walking == true && sneak==true) {
+      speed = 0.5;
     } else if (walking == true){
-      speed = 3.2;
+      speed = 2.5;
+      sprint=false;
+      sneak = false;
     }
     
 
@@ -100,10 +104,21 @@ void hitBox(){
       turnSpeed = 0;
     }
     
-    if(keyCode == 16){
+    if(keyCode == 16 && walking == true){
       sprint = false;
-    } else if (keyCode == 17){
-      sneak = false;
+      speed = 2.5;
+    } else if (keyCode == 16 && walking == false) {
+      sprint = false;
+      speed = 0;
+ 
     }
+    
+    if (keyCode == 17 && walking ==true ){
+      sneak = false;
+      speed = 2.5;
+    }else if(keyCode == 17 && walking ==false){
+      sneak = false;
+       speed = 0;
+    }  
   }
 }

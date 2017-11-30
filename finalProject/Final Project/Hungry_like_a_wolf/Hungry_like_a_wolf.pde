@@ -1,6 +1,7 @@
 Wolf wolf;
 Sheep[] sheep = new Sheep[10];
-UI ui;
+UI hp;
+UI stamina;
 Rabbit[] rabbit = new Rabbit[13];
 PImage grass;
 PImage test;
@@ -11,10 +12,11 @@ int timerLength = 1;
 void setup() {
   //size(1000,1000);
   fullScreen();
-  wolf = new Wolf(width/2, height/2);
-  ui = new UI(40, 40, 300);
+  wolf = new Wolf(width/2, height-100);
+   hp = new UI(40, 40, 300);
+   stamina = new UI(40,80,100);
   for (int i = 0; i < sheep.length; i++) {
-    sheep[i] = new Sheep(floor(random(270,680)), floor(random(20,330)));
+    sheep[i] = new Sheep(floor(random(270,680)), floor(random(40,260)));
   }
   for (int i = 0; i < rabbit.length; i++) {
     rabbit[i] = new Rabbit(floor(random(0, width)), floor(random(0, height)));
@@ -36,7 +38,7 @@ void draw() {
     sheep[i].display();
     sheep[i].update();
     
-    rabbit[i].runAway();
+    
     
     // Sheep Dies
     if (dist(wolf.x, wolf.y, sheep[i].x, sheep[i].y)<30) {
@@ -44,10 +46,10 @@ void draw() {
       timer = millis();
     }
     if (sheep[i].sheepAlive == false) {
-      ui.gainHealth = true;
+      hp.healthSheep = true;
     } 
-    if (ui.gainHealth == true && millis() - timer >= timerLength) {
-      ui.gainHealth = false;
+    if (hp.healthSheep == true && millis() - timer >= timerLength) {
+      hp.healthSheep = false;
     }
   }
   
@@ -55,25 +57,27 @@ void draw() {
   for (int i = 0; i<rabbit.length; i++) {
    rabbit[i].display();
    rabbit[i].update();
-   
+   rabbit[i].runAway();
     // Rabbit Dies
     if (dist(wolf.x, wolf.y, rabbit[i].x, rabbit[i].y)<20) {
       rabbit[i].dies();
       timer = millis();
     }
     if (rabbit[i].rabbitAlive == false) {
-      ui.gainHealth = true;
+      hp.healthRabbit = true;
     } 
-    if (ui.gainHealth == true && millis() - timer >= timerLength) {
-      ui.gainHealth = false;
+    if (hp.healthRabbit == true && millis() - timer >= timerLength) {
+      hp.healthRabbit = false;
     }
     
     
   }
   image(test, 0, 0);
 
-  ui.display();
-  ui.update();
+  hp.displayHP();
+  hp.updateHP();
+  stamina.displayStam();
+  stamina.updateStam();
 }
 
 

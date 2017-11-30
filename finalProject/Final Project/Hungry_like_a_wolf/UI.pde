@@ -1,29 +1,58 @@
-class UI{
+class UI {
   float x;
-float y;
-float health;
-boolean gainHealth = false;
+  float y;
+  float health;
+  boolean healthSheep = false;
+  boolean healthRabbit = false;
 
-  UI(float tempX, float tempY,float healthBar) {
-  x = tempX;
-  y = tempY;
-  health = healthBar;
-}
-  
- void display(){
-  rectMode(CORNER);
-   fill(255,0,0);
-   stroke(2);
-   rect(x,y,health,20);
- }
- void update(){
-   
-  if (gainHealth == true){
-    health +=1;
-  } else{
-     health -=0.1;
+
+
+  UI(float tempX, float tempY, float healthBar) {
+    x = tempX;
+    y = tempY;
+    health = healthBar;
   }
-    
-  
- }
+
+  void displayHP() {
+    rectMode(CORNER);
+    fill(255, 0, 0);
+    stroke(2);
+    rect(x, y, health, 20);
+    fill(0);
+    textSize(20);
+    text(floor(health), 45, 58);
+  }
+  void displayStam() {
+    rectMode(CORNER);
+    fill(0, 0, 255);
+    stroke(2);
+    rect(x, y, health, 20);
+  }
+  void updateHP() {
+    health = constrain (health, 0, 300);
+
+    if (healthSheep == true) {
+      health +=4;
+    } else {
+      health -=0.05;
+    }
+
+    if (healthRabbit == true) {
+      health +=2;
+    } else {
+      health -=0.05;
+    }
+  }
+  void updateStam() {
+    health = constrain (health, 0, 100);
+
+    if (wolf.sprint == true) {
+      health -=2;
+    } else if(health<100){
+      health +=2;
+    } if(health ==0){
+     wolf.sprint=false; 
+     health +=2;
+    }
+  }
 }
