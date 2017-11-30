@@ -35,6 +35,9 @@ void draw() {
   for (int i = 0; i<sheep.length; i++) {
     sheep[i].display();
     sheep[i].update();
+    
+    rabbit[i].runAway();
+    
     // Sheep Dies
     if (dist(wolf.x, wolf.y, sheep[i].x, sheep[i].y)<30) {
       sheep[i].dies();
@@ -52,6 +55,7 @@ void draw() {
   for (int i = 0; i<rabbit.length; i++) {
    rabbit[i].display();
    rabbit[i].update();
+   
     // Rabbit Dies
     if (dist(wolf.x, wolf.y, rabbit[i].x, rabbit[i].y)<20) {
       rabbit[i].dies();
@@ -63,6 +67,8 @@ void draw() {
     if (ui.gainHealth == true && millis() - timer >= timerLength) {
       ui.gainHealth = false;
     }
+    
+    
   }
   image(test, 0, 0);
 

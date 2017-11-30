@@ -6,9 +6,11 @@ boolean rabbitAlive=true;
 
 float tx = random(0,100);
 float ty = random(0,100);
-float speed = 2;
+float speed = 1;
 float x;
 float y;
+float vx;
+float vy;
 
   Rabbit(float tempX, float tempY) {
   x = tempX;
@@ -19,8 +21,8 @@ float y;
 
 
   void update() {
-    float vx = speed * (noise(tx)*2-1);
-    float vy = speed * (noise(ty)*2-1);
+  vx = speed * (noise(tx)*2-1);
+  vy = speed * (noise(ty)*2-1);
     x += vx;
     y += vy;
 
@@ -29,12 +31,6 @@ float y;
     x = constrain(x,0,width);
     y = constrain(y,0,height);
     
-    //if(x<265+sheep.width || x>690-sheep.width){
-    // vx = -vx; 
-    //}
-    //if(y< 40 ||y >335- sheep.height){
-    //  vy = -vy;
-    //}
     //x = constrain(x,0+sheep.width,width-sheep.width);
    // y = constrain(y,0+sheep.height,height-sheep.height);
   }
@@ -49,9 +45,19 @@ float y;
     ellipse(hitBox,hitBoxY,20,20);
     //rect(500,10,400,650);
     }
-  
   }
-  
+ 
+  void runAway(){
+   if (dist(wolf.x, wolf.y, x,y)<80) {
+      vx= - vx;
+      vy = -vy;
+      speed = 8;
+    } else{
+      speed = 1;
+    }
+    
+    
+  }
   
   
 void dies(){
