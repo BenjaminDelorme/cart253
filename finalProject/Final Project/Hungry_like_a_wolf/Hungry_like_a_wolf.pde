@@ -4,6 +4,8 @@ UI ui;
 PImage grass;
 PImage test;
 
+int timer = 0;
+int timerLength = 1;
 
 void setup() {
   //size(1000,1000);
@@ -24,20 +26,25 @@ void draw() {
   wolf.update();
   wolf.y = constrain(wolf.y,0,height);
   
-
+  println(mouseX,mouseY);
   
   for (int i = 0; i<sheep.length; i++){
   sheep[i].display();
   sheep[i].update();
   
-  //if( wolf.y >= sheep[i].y-10 && wolf.y <= sheep[i].y+10 && wolf.x >= sheep[i].x-50 && wolf.x <= sheep[i].x+50){
   
-  // sheep[i].dies();
-  //}
+  // Sheep Dies
+ 
   
-  if(dist(wolf.x,wolf.y,sheep[i].x,sheep[i].y)<40){
-  
+  if(dist(wolf.x,wolf.y,sheep[i].x,sheep[i].y)<30){
    sheep[i].dies();
+   timer = millis();
+  }
+  
+  if(sheep[i].sheepAlive == false){
+    ui.gainHealth = true;
+  } if (ui.gainHealth == true && millis() - timer >= timerLength){
+   ui.gainHealth = false; 
   }
   }
  image(test,0,0);

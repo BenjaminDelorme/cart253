@@ -2,6 +2,7 @@ class UI{
   float x;
 float y;
 float health;
+boolean gainHealth = false;
 
   UI(float tempX, float tempY,float healthBar) {
   x = tempX;
@@ -16,6 +17,13 @@ float health;
    rect(x,y,health,20);
  }
  void update(){
-   health -=0.1;
+   
+  if (gainHealth == true){
+    health +=1;
+  } else{
+     health -=0.1;
+  }
+    
+  
  }
 }

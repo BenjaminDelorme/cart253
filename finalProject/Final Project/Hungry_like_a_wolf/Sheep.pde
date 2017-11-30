@@ -30,9 +30,17 @@ float y;
     //y += sin(theta) * speed;
   tx += 0.01;
   ty += 0.01;
+    x = constrain(x,265+sheep.width,690-sheep.width);
+    y = constrain(y,40+sheep.height,335-sheep.height);
     
-    x = constrain(x,0+sheep.width,width-sheep.width);
-    y = constrain(y,0+sheep.height,height-sheep.height);
+    if(x<265+sheep.width || x>690-sheep.width){
+     vx = -vx; 
+    }
+    if(y< 40 ||y >335- sheep.height){
+      vy = -vy;
+    }
+    //x = constrain(x,0+sheep.width,width-sheep.width);
+   // y = constrain(y,0+sheep.height,height-sheep.height);
   }
 
 
@@ -44,6 +52,8 @@ float y;
     image(sheep, x, y);
     rect(hitBox,hitBoxY,20,35);
     sheep.resize(35, 55);
+    //fill(255);
+    //rect(500,10,400,650);
     }
     //rectMode(CENTER);
     // pushMatrix();
