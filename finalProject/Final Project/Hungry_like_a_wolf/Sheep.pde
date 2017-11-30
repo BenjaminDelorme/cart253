@@ -42,7 +42,7 @@ float y;
       float hitBox = x+17;
       float hitBoxY = y+17;
     image(sheep, x, y);
-    rect(hitBox,hitBoxY,15,15);
+    rect(hitBox,hitBoxY,20,35);
     sheep.resize(35, 55);
     }
     //rectMode(CENTER);

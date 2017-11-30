@@ -51,7 +51,8 @@ void hitBox(){
      pushMatrix();
     translate(x, y);
     rotate(theta);
-      fill(0);
+    noStroke();
+      fill(0,0,0,0);
      rect(0,0,15,15);
     popMatrix();
 }
