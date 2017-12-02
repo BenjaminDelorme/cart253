@@ -4,8 +4,8 @@ class Rabbit{
 
 boolean rabbitAlive=true;
 
-float tx = random(0,100);
-float ty = random(0,100);
+float tx;
+float ty;
 float speed = 1;
 float x;
 float y;

@@ -48,11 +48,11 @@ class UI {
 
     if (wolf.sprint == true) {
       health -=2;
-    } else if(health<100){
-      health +=2;
-    } if(health ==0){
+      timer = millis();
+    } else if(health<100 && millis() - timer >= timerLength){
+      health +=0.4;
+    } if(health <10){
      wolf.sprint=false; 
-     health +=2;
     }
   }
 }

@@ -2,6 +2,7 @@ Wolf wolf;
 Sheep[] sheep = new Sheep[10];
 UI hp;
 UI stamina;
+Farmer farmer;
 Rabbit[] rabbit = new Rabbit[13];
 PImage grass;
 PImage test;
@@ -12,15 +13,16 @@ int timerLength = 1;
 void setup() {
   //size(1000,1000);
   fullScreen();
-  wolf = new Wolf(width/2, height-100);
-   hp = new UI(40, 40, 300);
-   stamina = new UI(40,80,100);
-  for (int i = 0; i < sheep.length; i++) {
+    wolf = new Wolf(width/2, height-100);
+    hp = new UI(40, 40, 300);
+    stamina = new UI(40,80,100);
+      for (int i = 0; i < sheep.length; i++) {
     sheep[i] = new Sheep(floor(random(270,680)), floor(random(40,260)));
-  }
-  for (int i = 0; i < rabbit.length; i++) {
+      }
+      for (int i = 0; i < rabbit.length; i++) {
     rabbit[i] = new Rabbit(floor(random(0, width)), floor(random(0, height)));
-  }
+      }
+     farmer = new Farmer(300,400);
   grass = loadImage("data/images/grass.png");
   test = loadImage("data/images/test.png");
 }
@@ -30,8 +32,10 @@ void draw() {
   wolf.display();
   wolf.hitBox();
   wolf.update();
-  wolf.y = constrain(wolf.y, 0, height);
-
+  farmer.display();
+  farmer.update();
+  farmer.route();
+  
   println(mouseX, mouseY);
 
   for (int i = 0; i<sheep.length; i++) {

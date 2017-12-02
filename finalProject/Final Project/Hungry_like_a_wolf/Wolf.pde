@@ -82,7 +82,7 @@ void hitBox(){
      if (walking == true && sprint==true) { 
       speed = 6;
     } else if (walking == true && sneak==true) {
-      speed = 0.5;
+      speed = 0.8;
     } else if (walking == true){
       speed = 2.5;
       sprint=false;
