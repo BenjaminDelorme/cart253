@@ -19,8 +19,14 @@ class Farmer{
    //vy = speed * (noise(ty)*2-1);
   x += vx;
   //y += vy;
+  }
   
-  
+  void sight(){
+    if(speed>=0&& wolf.y<=y+80&&wolf.y>=y-40 && wolf.x >= x && wolf.x<=x+400){
+     println("yus");
+    } else if(speed<=0&& wolf.y<=y+80&&wolf.y>=y-40 && wolf.x <= x && wolf.x>=x-400){
+      println("amen");
+    }
   }
   
   void route(){

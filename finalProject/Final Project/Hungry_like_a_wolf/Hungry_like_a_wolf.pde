@@ -1,18 +1,28 @@
+//HUNGRY LIKE A WOLF//
+//Main page
+
+
+//Class creation
 Wolf wolf;
 Sheep[] sheep = new Sheep[10];
 UI hp;
 UI stamina;
 Farmer farmer;
 Rabbit[] rabbit = new Rabbit[13];
+
+
+//Setting the variables
 PImage grass;
 PImage test;
 
 int timer = 0;
 int timerLength = 1;
 
+
+//Setup for main program, calling in and loading the classes
 void setup() {
-  //size(1000,1000);
-  fullScreen();
+  size(1000,1000);
+  //fullScreen();
     wolf = new Wolf(width/2, height-100);
     hp = new UI(40, 40, 300);
     stamina = new UI(40,80,100);
@@ -27,6 +37,7 @@ void setup() {
   test = loadImage("data/images/test.png");
 }
 
+//Setting the classe's methods in the draw loop
 void draw() {
   image(grass, 0, 0);
   wolf.display();
@@ -35,16 +46,15 @@ void draw() {
   farmer.display();
   farmer.update();
   farmer.route();
-  
-  println(mouseX, mouseY);
+  farmer.sight();
+ // println(mouseX, mouseY);
 
+
+//For sheep//
   for (int i = 0; i<sheep.length; i++) {
     sheep[i].display();
     sheep[i].update();
-    
-    
-    
-    // Sheep Dies
+    // Manage if sheep dies
     if (dist(wolf.x, wolf.y, sheep[i].x, sheep[i].y)<30) {
       sheep[i].dies();
       timer = millis();
@@ -58,11 +68,13 @@ void draw() {
   }
   
   
+  
+  //For rabbit
   for (int i = 0; i<rabbit.length; i++) {
    rabbit[i].display();
    rabbit[i].update();
    rabbit[i].runAway();
-    // Rabbit Dies
+    // Manage if rabbit dies
     if (dist(wolf.x, wolf.y, rabbit[i].x, rabbit[i].y)<20) {
       rabbit[i].dies();
       timer = millis();
@@ -76,8 +88,9 @@ void draw() {
     
     
   }
+  //Setting up the background image
   image(test, 0, 0);
-
+//Setting the methods from the UI class
   hp.displayHP();
   hp.updateHP();
   stamina.displayStam();
@@ -86,7 +99,7 @@ void draw() {
 
 
 
-
+//Setting the key related methods
 void keyPressed() {
   wolf.keyPressed();
 }
