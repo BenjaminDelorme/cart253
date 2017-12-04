@@ -2,7 +2,8 @@ class Wolf {
   float theta = -PI/2;
   float speed = 0;
   float turnSpeed = 0;
-
+  int size = 75;
+  int large = 25;
 PImage wolf;
 
   float x;
@@ -12,7 +13,7 @@ PImage wolf;
   boolean walking;
   Wolf(float tempX, float tempY) {
     wolf = loadImage("data/images/wolf_2.png");
-    wolf.resize(75, 25);
+    wolf.resize(size, large);
     x = tempX;
     y = tempY;  }
 
@@ -24,7 +25,20 @@ PImage wolf;
     y += sin(theta) * speed;
     x = constrain(x,0,width);
     y = constrain(y,0,height);
-    x= constrain(x,0,width);
+    
+    
+    
+    if(x >= wall.x1-size/2 && y <= wall.length1 && x<= wall.x1){
+      speed=0;
+      x = wall.x1-size/2;
+    }else if (x <= wall.x1+size/2 &&y <= wall.length1 && x>= wall.x1 ){
+      speed=0;
+      x = wall.x1+size/2;
+    }
+   // if (y<= 365 && x>=265&& x<=695){
+   //speed =0;
+   //y=365+wolf.width/2;
+   //}
   }
 
 

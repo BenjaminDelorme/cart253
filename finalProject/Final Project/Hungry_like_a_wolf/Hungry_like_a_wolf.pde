@@ -8,21 +8,25 @@ Sheep[] sheep = new Sheep[10];
 UI hp;
 UI stamina;
 Farmer farmer;
-Rabbit[] rabbit = new Rabbit[13];
-
-
+Rabbit[] rabbit = new Rabbit[5];
+Menus menu;
+Wall wall;
 //Setting the variables
 PImage grass;
 PImage test;
-
+PImage night;
+int day =30000;
+boolean dayTime;
+boolean nightTime =false;
+float transparency = 0;
 int timer = 0;
 int timerLength = 1;
 
 
 //Setup for main program, calling in and loading the classes
 void setup() {
-  size(1000,1000);
-  //fullScreen();
+  //size(1000,1000);
+  fullScreen();
     wolf = new Wolf(width/2, height-100);
     hp = new UI(40, 40, 300);
     stamina = new UI(40,80,100);
@@ -33,8 +37,12 @@ void setup() {
     rabbit[i] = new Rabbit(floor(random(0, width)), floor(random(0, height)));
       }
      farmer = new Farmer(300,400);
+     menu = new Menus();
+     wall = new Wall();
   grass = loadImage("data/images/grass.png");
   test = loadImage("data/images/test.png");
+  night = loadImage("images/night.png");
+  dayTime = true;
 }
 
 //Setting the classe's methods in the draw loop
@@ -46,8 +54,9 @@ void draw() {
   farmer.display();
   farmer.update();
   farmer.route();
-  farmer.sight();
- // println(mouseX, mouseY);
+  wall.display();
+  //wall.collision();
+  println(mouseX, mouseY);
 
 
 //For sheep//
@@ -66,7 +75,7 @@ void draw() {
       hp.healthSheep = false;
     }
   }
-  
+
   
   
   //For rabbit
@@ -85,18 +94,39 @@ void draw() {
     if (hp.healthRabbit == true && millis() - timer >= timerLength) {
       hp.healthRabbit = false;
     }
-    
+   
     
   }
-  //Setting up the background image
-  image(test, 0, 0);
+  dayCycle();
+   
 //Setting the methods from the UI class
   hp.displayHP();
   hp.updateHP();
   stamina.displayStam();
   stamina.updateStam();
+   //Setting up the background image
+  //farmer.sight();
+ 
 }
 
+
+ 
+ void dayCycle(){
+   
+ if (dayTime == true){
+   nightTime = false;
+     image(test,0,0);
+   } else{
+    nightTime =true; 
+   }
+ 
+if (millis() >= day){
+  nightTime =true;
+     dayTime = false;
+     image(night,0,0);
+    // tint(255,255);
+  }
+}
 
 
 //Setting the key related methods

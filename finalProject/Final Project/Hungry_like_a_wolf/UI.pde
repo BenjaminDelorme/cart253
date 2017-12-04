@@ -42,6 +42,9 @@ class UI {
     } else {
       health -=0.05;
     }
+     if(health == 0){
+  menu.dead();
+   }
   }
   void updateStam() {
     health = constrain (health, 0, 100);
@@ -55,4 +58,5 @@ class UI {
      wolf.sprint=false; 
     }
   }
+  
 }
