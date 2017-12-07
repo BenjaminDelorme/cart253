@@ -54,8 +54,8 @@ void draw() {
   farmer.display();
   farmer.update();
   farmer.route();
-  wall.display();
-  //wall.collision();
+  //wall.display();
+  wolf.collision();
   println(mouseX, mouseY);
 
 
