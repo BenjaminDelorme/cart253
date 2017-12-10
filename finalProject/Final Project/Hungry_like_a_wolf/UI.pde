@@ -20,7 +20,7 @@ class UI {
     rect(x, y, health, 20);
     fill(0);
     textSize(20);
-    text(floor(health), 45, 58);
+    text(floor(health), 60, 58);
   }
   void displayStam() {
     rectMode(CORNER);
@@ -58,5 +58,7 @@ class UI {
      wolf.sprint=false; 
     }
   }
-  
+  void reset(){
+   health = 300; 
+  }
 }

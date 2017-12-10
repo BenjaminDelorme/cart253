@@ -2,6 +2,7 @@ class Farmer{
   PImage farmer;
   PImage farmer2;
   float scale = 1;
+  boolean lost = false;
   float x;
   float y;
   float vx;
@@ -27,10 +28,13 @@ class Farmer{
   
   void sight(){
     if(speed>=0&& wolf.y<=y+80&&wolf.y>=y-40 && wolf.x >= x && wolf.x<=x+400){
-     menu.dead();
+     lost =true;
     } else if(speed<=0&& wolf.y<=y+80&&wolf.y>=y-40 && wolf.x <= x && wolf.x>=x-400){
-      menu.dead();
+      lost = true;
+    } else{
+      
     }
+
   }
   
   void route(){

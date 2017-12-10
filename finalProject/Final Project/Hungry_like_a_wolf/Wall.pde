@@ -9,7 +9,6 @@ class Wall{
   float x3=700;
   float y3=250;
   float length3=190;
-  boolean hit1L;
  Wall(){
    
  }
