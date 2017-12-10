@@ -4,17 +4,15 @@ class Sheep{
  
 PImage sheep;
 boolean sheepAlive=true;
-int sheepQty;
 float tx = random(0,100);
 float ty = random(0,100);
 float speed = 2;
 float x;
 float y;
 
-  Sheep(float tempX, float tempY, int Qty) {
+  Sheep(float tempX, float tempY) {
   x = tempX;
   y = tempY;
-  sheepQty = Qty;
      sheep = loadImage("data/images/sheep.png");
 }
 

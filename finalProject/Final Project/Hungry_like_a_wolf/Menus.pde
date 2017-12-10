@@ -47,9 +47,7 @@ class Menus {
     if (keyPressed) {
       clickTitle = true;
     }
-    if(roundEnd==true && keyPressed){
-     clickWave=true; 
-    }
+
   }
 
   void keyReleased() {
