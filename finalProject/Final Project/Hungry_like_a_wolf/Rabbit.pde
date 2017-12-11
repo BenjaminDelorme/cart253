@@ -2,6 +2,7 @@ class Rabbit{
 
  
 PImage rabbit;
+PImage mrabbit;
 boolean rabbitAlive=true;
 
 float tx=random(0,100);
@@ -16,6 +17,7 @@ float vy;
   x = tempX;
   y = tempY;
   rabbit = loadImage("images/rabbit.png");
+  mrabbit = loadImage("images/mrabbit.png");
 }
 
 
@@ -35,21 +37,23 @@ float vy;
    if (y<= 365 && x>=265&& x<=695){
    speed = -speed;
    }
-    //x = constrain(x,0+sheep.width,width-sheep.width);
-   // y = constrain(y,0+sheep.height,height-sheep.height);
   }
 
 
   
   void display(){
     if (rabbitAlive){
-     // float hitBox = x+17;
-      //float hitBoxY = y+17;
-     //image(rabbit,hitBox,hitBoxY);
      rectMode(CENTER);
       image(rabbit,x,y);
      rabbit.resize(30,30);
-    //rect(500,10,400,650);
+    }
+  }
+  
+  void mDisplay(){
+    if (rabbitAlive){
+         rectMode(CENTER);
+      image(mrabbit,x,y);
+     mrabbit.resize(26,26);
     }
   }
  

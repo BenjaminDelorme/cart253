@@ -22,6 +22,7 @@ UI stamina;
 Farmer farmer;
 Farmer farmer2;
 Rabbit[] rabbit = new Rabbit[12];
+Rabbit mRabbit;
 Wall wall;
 
 
@@ -32,20 +33,20 @@ PImage  days;
 PImage night;
 float day =4000;
 float startGame;
-float wave = 117000;
+float wave = 7000;
 float waveMenuTime=2000;
 float timer = 0;
 float timer2;
 float timerHealth;
-float timerLength = 1;
+float timerLength = 0.5;
 String BG = "BG";
 boolean roundOn=false;
 
 
 //Setup for main program, calling in and loading the classes
 void setup() {
-  size(1000,1000);
-  //fullScreen();
+  //size(1000,1000);
+  fullScreen();
   wolf = new Wolf(width/2, height-100);
   hp = new UI(40, 40, 300);
   stamina = new UI(40, 80, 100);
@@ -54,6 +55,7 @@ void setup() {
     }
     for (int i = 0; i < rabbit.length; i++) {
   rabbit[i] = new Rabbit(floor(random(0, width)), floor(random(0, height))); }
+  mRabbit = new Rabbit(floor(random(width/2, width)), floor(random(height/2, height)));
   farmer = new Farmer(300, 400);
   farmer2 = new Farmer(width/2, height/2);
   menu = new Menus();
@@ -98,10 +100,13 @@ void draw() {
       farmer.route();
       farmer.turnAround();
       farmer.sight();
+      farmer.turnAround();
       
       wolf.collision();
       sheep();
       rabbit();
+      magicRabbit();
+      mRabbit.y = constrain(mRabbit.y,height/2,height);
       
       //Setting background image depending on time of the game(day and night)
       if(roundOn==true){
@@ -146,13 +151,15 @@ void draw() {
       farmer.update();
       farmer.route();
       farmer.sight();
+      farmer.turnAround();
       farmer2.turnAround();
       farmer2.display();
       farmer2.updateAround();
       farmer2.sightAround();
       sheep2();
       rabbit2();
-      
+      magicRabbit2();
+      mRabbit.y = constrain(mRabbit.y,height/2,height);
       if(roundOn==true){
       dayCycle();
       } else{
@@ -195,6 +202,7 @@ void draw() {
       farmer.update();
       farmer.route();
       farmer.sight();
+      farmer.turnAround();
       farmer2.turnAround();
       farmer2.display();
       farmer2.updateAround();
@@ -202,6 +210,8 @@ void draw() {
       wolf.collision();
       sheep3();
       rabbit3();
+      magicRabbit3();
+      mRabbit.y = constrain(mRabbit.y,height/2,height);
       
       if(roundOn==true){
       dayCycle();
@@ -237,6 +247,10 @@ void draw() {
        menu.nextRound();
        if(millis()-timer2 >= waveMenuTime){
            hp.health = 300;
+           wolf.x = width/2;
+           wolf.y = height-100;
+           wolf.speed = 0;
+           wolf.turnSpeed=0;
          state=State.GAME2;
        }
   
@@ -245,6 +259,10 @@ void draw() {
        menu.nextRound();
        if(millis()-timer2 >= waveMenuTime){
            hp.health = 300;
+           wolf.x = width/2;
+           wolf.y = height-100;
+           wolf.speed = 0;
+           wolf.turnSpeed=0;
          state=State.GAME3;
        }
  
@@ -332,6 +350,48 @@ void sheep3(){
       } 
 }
    ///////////////////////////////////////////////    RABBIT FUNCTIONS    /////////////////////////////////////////////// 
+ void magicRabbit(){
+  mRabbit.mDisplay();
+  mRabbit.update(); 
+   if (dist(wolf.x, wolf.y, mRabbit.x, mRabbit.y)<20) {
+          mRabbit.dies();
+          timerHealth = millis();
+        }
+        if (mRabbit.rabbitAlive == false) {
+          hp.healthRabbit = true;
+        } 
+        if (hp.healthRabbit == true && millis() - timerHealth >= timerLength) {
+          hp.healthRabbit = false;
+        }
+ }
+  void magicRabbit2(){
+  mRabbit.mDisplay();
+  mRabbit.update(); 
+   if (dist(wolf.x, wolf.y, mRabbit.x, mRabbit.y)<20) {
+          mRabbit.dies();
+          timerHealth = millis();
+        }
+        if (mRabbit.rabbitAlive == false) {
+          hp.healthRabbit = true;
+        } 
+        if (hp.healthRabbit == true && millis() - timerHealth >= timerLength) {
+          hp.healthRabbit = false;
+        }
+ }
+  void magicRabbit3(){
+  mRabbit.mDisplay();
+  mRabbit.update(); 
+   if (dist(wolf.x, wolf.y, mRabbit.x, mRabbit.y)<20) {
+          mRabbit.dies();
+          timerHealth = millis();
+        }
+        if (mRabbit.rabbitAlive == false) {
+          hp.healthRabbit = true;
+        } 
+        if (hp.healthRabbit == true && millis() - timerHealth >= timerLength) {
+          hp.healthRabbit = false;
+        }
+ }
 void rabbit(){
   for (int i = 0; i<rabbit.length; i++) {
         rabbit[i].display();

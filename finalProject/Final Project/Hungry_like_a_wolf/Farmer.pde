@@ -31,6 +31,7 @@ class Farmer{
     y += vy;
     tx += 0.01;
     ty += 0.01;
+    x = constrain(x,width/2-100,width);
   }
   
   

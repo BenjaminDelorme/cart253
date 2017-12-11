@@ -4,6 +4,7 @@ class UI {
   float health;
   boolean healthSheep = false;
   boolean healthRabbit = false;
+  boolean healthmRabbit = false;
 
 
 
@@ -38,6 +39,11 @@ class UI {
 
     if (healthRabbit == true) {
       health +=2;
+    } else {
+      health -=0.05;
+    }
+     if (healthmRabbit == true) {
+      health +=10;
     } else {
       health -=0.05;
     }
