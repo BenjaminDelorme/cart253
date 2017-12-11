@@ -1,15 +1,16 @@
 class Farmer{
   PImage farmer;
   PImage farmer2;
-  float scale = 1;
+
   boolean lost = false;
   float x;
   float y;
   float vx;
   float vy;
+  float range = 300;
   boolean LtR=true;
-  //float tx = random(20,60);
-  //float ty = random(0,100);
+  float tx=random(20,60);
+  float ty=random(20,60);
   float speed =2;
   Farmer(float tempX, float tempY){
     x=tempX;
@@ -19,20 +20,33 @@ class Farmer{
   }
 
   void update(){
-   vx = speed;// * (noise(tx)*2-1);
-   //vy = speed * (noise(ty)*2-1);
+   vx = speed;
   x += speed;
-  //y += vy;
-  // println(x,y);
+  }
+  
+  void updateAround(){
+    vx = speed * (noise(tx)*2-1);
+    vy = speed * (noise(ty)*2-1);
+    x += vx;
+    y += vy;
+    tx += 0.01;
+    ty += 0.01;
+  }
+  
+  
+  void sightAround(){
+   if(wolf.x >= x-range/2 && wolf.x <= x+range/2 && wolf.y <= y+range/2 && wolf.y>= y-range/2){
+    lost=true;
+   }
   }
   
   void sight(){
-    if(speed>=0&& wolf.y<=y+80&&wolf.y>=y-40 && wolf.x >= x && wolf.x<=x+400){
+    if(vx>=0&& wolf.y<=y+80&&wolf.y>=y-40 && wolf.x >= x && wolf.x<=x+400){
      lost =true;
-    } else if(speed<=0&& wolf.y<=y+80&&wolf.y>=y-40 && wolf.x <= x && wolf.x>=x-400){
+    } else if(vx<=0&& wolf.y<=y+80&&wolf.y>=y-40 && wolf.x <= x && wolf.x>=x-400){
       lost = true;
     } else{
-      
+      lost=false;
     }
 
   }
@@ -40,22 +54,25 @@ class Farmer{
   void route(){
       if(x <= 200 || x>= 800){
     speed = -speed;
-    
-      } if (speed >=0){
+      }
+  }
+  
+  void turnAround(){
+     if (vx >=0){
        LtR = true; 
       } else{
        LtR = false; 
-      }
+      } 
   }
   
   void display(){
     pushMatrix();
    rectMode(CENTER);
-   scale(scale);
+   scale(1);
    if (LtR==true){
    image(farmer,x,y);
    farmer.resize(60,80);
-   }else if (LtR==false) {
+   }else{
      image(farmer2,x,y);
    farmer2.resize(60,80);
    }

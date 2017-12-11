@@ -20,6 +20,7 @@ Sheep[] sheep = new Sheep[10];
 UI hp;
 UI stamina;
 Farmer farmer;
+Farmer farmer2;
 Rabbit[] rabbit = new Rabbit[12];
 Wall wall;
 
@@ -31,7 +32,7 @@ PImage  days;
 PImage night;
 float day =4000;
 float startGame;
-float wave = 7000;
+float wave = 117000;
 float waveMenuTime=2000;
 float timer = 0;
 float timer2;
@@ -54,6 +55,7 @@ void setup() {
     for (int i = 0; i < rabbit.length; i++) {
   rabbit[i] = new Rabbit(floor(random(0, width)), floor(random(0, height))); }
   farmer = new Farmer(300, 400);
+  farmer2 = new Farmer(width/2, height/2);
   menu = new Menus();
   wall = new Wall();
   grass = loadImage("data/images/grass2.png");
@@ -90,11 +92,14 @@ void draw() {
       wolf.display();
       wolf.hitBox();
       wolf.update();
+      
       farmer.display();
       farmer.update();
       farmer.route();
+      farmer.turnAround();
+      farmer.sight();
+      
       wolf.collision();
-      println(timer);
       sheep();
       rabbit();
       
@@ -110,7 +115,6 @@ void draw() {
       hp.updateHP();
       stamina.displayStam();
       stamina.updateStam();
-      farmer.sight();
       
      if (timer >= wave && timer <= wave+1000) {
        roundOn=false;
@@ -121,7 +125,7 @@ void draw() {
   } 
 
 
-      if(farmer.lost == true){
+      if(farmer.lost == true || farmer2.lost==true){
        state = State.DEAD;
       }
 
@@ -137,11 +141,15 @@ void draw() {
       wolf.display();
       wolf.hitBox();
       wolf.update();
+      wolf.collision();
       farmer.display();
       farmer.update();
       farmer.route();
-      wolf.collision();
-      println(timer);
+      farmer.sight();
+      farmer2.turnAround();
+      farmer2.display();
+      farmer2.updateAround();
+      farmer2.sightAround();
       sheep2();
       rabbit2();
       
@@ -156,7 +164,7 @@ void draw() {
       hp.updateHP();
       stamina.displayStam();
       stamina.updateStam();
-      farmer.sight();
+
       
      if (timer >= wave && timer <= wave+1000) {
        roundOn=false;
@@ -167,7 +175,7 @@ void draw() {
   } 
 
     //Goes to death screen if farmer sees you (YOU LOSE THE GAME)
-      if(farmer.lost == true){
+      if(farmer.lost == true || farmer2.lost==true){
        state = State.DEAD;
       }
 
@@ -186,8 +194,12 @@ void draw() {
       farmer.display();
       farmer.update();
       farmer.route();
+      farmer.sight();
+      farmer2.turnAround();
+      farmer2.display();
+      farmer2.updateAround();
+      farmer2.sightAround();
       wolf.collision();
-      println(timer);
       sheep3();
       rabbit3();
       
@@ -202,7 +214,6 @@ void draw() {
       hp.updateHP();
       stamina.displayStam();
       stamina.updateStam();
-      farmer.sight();
       
      if (timer >= wave && timer <= wave+1000) {
        roundOn=false;
@@ -213,7 +224,7 @@ void draw() {
   } 
 
     //Goes to death screen if farmer sees you (YOU LOSE THE GAME)
-      if(farmer.lost == true){
+      if(farmer.lost == true || farmer2.lost==true){
        state = State.DEAD;
       }
 
@@ -224,7 +235,6 @@ void draw() {
      ///////////////// /////////////////////////////         WAVE MENUS       //////////////////////////////////////////////
       case WAVE:
        menu.nextRound();
-        println(timer2);
        if(millis()-timer2 >= waveMenuTime){
            hp.health = 300;
          state=State.GAME2;
@@ -233,7 +243,6 @@ void draw() {
       break;
       case WAVE2:
        menu.nextRound();
-       println(timer2);
        if(millis()-timer2 >= waveMenuTime){
            hp.health = 300;
          state=State.GAME3;
