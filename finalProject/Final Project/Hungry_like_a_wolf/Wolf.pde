@@ -16,6 +16,7 @@ class Wolf {
     wolf.resize(size, large);
     x = tempX;
     y = tempY;
+    
   }
 
 

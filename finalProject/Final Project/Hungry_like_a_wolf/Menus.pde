@@ -38,7 +38,7 @@ class Menus {
     waveN +=1;
     } 
 
-  
+
 
 
 

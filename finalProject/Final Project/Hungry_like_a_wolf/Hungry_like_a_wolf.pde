@@ -1,6 +1,5 @@
 //HUNGRY LIKE A WOLF//
 //Main page
-
 enum State {
   NONE, 
     TITLE, 
@@ -8,9 +7,11 @@ enum State {
     GAME2,
     GAME3,
     WAVE,
-    DEAD
+    WAVE2,
+    WAVE3,
+    DEAD,
+    WON
 }
-
 
 //Class creation
 State state;
@@ -36,13 +37,14 @@ float timer = 0;
 float timer2;
 float timerHealth;
 float timerLength = 1;
+
 boolean roundOn=false;
 
 
 //Setup for main program, calling in and loading the classes
 void setup() {
-  //size(1000,1000);
-  fullScreen();
+  size(1000,1000);
+  //fullScreen();
   wolf = new Wolf(width/2, height-100);
   hp = new UI(40, 40, 300);
   stamina = new UI(40, 80, 100);
@@ -81,53 +83,7 @@ void draw() {
 
 
 ///////////////////////////////////////////////    WAVE1    /////////////////////////////////////////////// 
-  case GAME2:
-  //Apply methods and functions for game1 scenario
-      timer=millis() - startGame - wave-waveMenuTime;
-      roundOn=true;
-      image(grass, 0, 0);
-      wolf.display();
-      wolf.hitBox();
-      wolf.update();
-      farmer.display();
-      farmer.update();
-      farmer.route();
-      wolf.collision();
-      println(timer);
-      sheep();
-      rabbit();
-      
-      
-      if(roundOn==true){
-      dayCycle();
-      } else{
-       roundOn=false;
-      }
-      
-      //Setting the methods from the UI class
-      hp.displayHP();
-      hp.updateHP();
-      stamina.displayStam();
-      stamina.updateStam();
-      farmer.sight();
-      
-     if (timer >= wave && timer <= wave+1000) {
-       roundOn=false;
-       
-  } if (roundOn==false){
-    timer2 = millis();
-     state = State.WAVE; 
-  } 
-
-
-      if(farmer.lost == true){
-       state = State.DEAD;
-      }
-
-     
-      break;
-       ///////////////////////////////////////////////    WAVE2    /////////////////////////////////////////////// 
-       case GAME:
+     case GAME:
   //Apply methods and functions for game1 scenario
       timer=millis() - startGame;
       //timer=millis() - startGame - wave-waveMenuTime;
@@ -173,16 +129,129 @@ void draw() {
 
      
       break;
+       ///////////////////////////////////////////////    WAVE2    /////////////////////////////////////////////// 
+    
+      case GAME2:
+  //Apply methods and functions for game2 scenario
+      timer=millis() - startGame - wave-waveMenuTime;
+      roundOn=true;
+      image(grass, 0, 0);
+      wolf.display();
+      wolf.hitBox();
+      wolf.update();
+      farmer.display();
+      farmer.update();
+      farmer.route();
+      wolf.collision();
+      println(timer);
+      sheep();
+      rabbit();
+      
+      if(roundOn==true){
+      dayCycle();
+      } else{
+       roundOn=false;
+      }
+      
+      //Setting the methods from the UI class
+      hp.displayHP();
+      hp.updateHP();
+      stamina.displayStam();
+      stamina.updateStam();
+      farmer.sight();
+      
+     if (timer >= wave && timer <= wave+1000) {
+       roundOn=false;
+       
+  } if (roundOn==false){
+    timer2 = millis();
+     state = State.WAVE2; 
+  } 
+
+    //Goes to death screen if farmer sees you (YOU LOSE THE GAME)
+      if(farmer.lost == true){
+       state = State.DEAD;
+      }
+
+      break;
+        ///////////////////////////////////////////////    WAVE3    /////////////////////////////////////////////// 
+    
+      case GAME3:
+  //Apply methods and functions for game3 scenario
+      timer=millis() - startGame - wave*2 -waveMenuTime*2;
+
+      roundOn=true;
+      image(grass, 0, 0);
+      wolf.display();
+      wolf.hitBox();
+      wolf.update();
+      farmer.display();
+      farmer.update();
+      farmer.route();
+      wolf.collision();
+      println(timer);
+      sheep();
+      rabbit();
+      
+      if(roundOn==true){
+      dayCycle();
+      } else{
+       roundOn=false;
+      }
+      
+      //Setting the methods from the UI class
+      hp.displayHP();
+      hp.updateHP();
+      stamina.displayStam();
+      stamina.updateStam();
+      farmer.sight();
+      
+     if (timer >= wave && timer <= wave+1000) {
+       roundOn=false;
+       
+  } if (roundOn==false){
+    timer2 = millis();
+     state = State.WAVE3; 
+  } 
+
+    //Goes to death screen if farmer sees you (YOU LOSE THE GAME)
+      if(farmer.lost == true){
+       state = State.DEAD;
+      }
+
+      break;
+      /////////////////////////////WAVE MENUS////////////////////////////////
       case WAVE:
        menu.nextRound();
+        println(timer2);
        if(millis()-timer2 >= waveMenuTime){
          state=State.GAME2;
+       }
+  
+      break;
+      case WAVE2:
+       menu.nextRound();
+       println(timer2);
+       if(millis()-timer2 >= waveMenuTime){
+         state=State.GAME3;
+       }
+  
+      break;
+      case WAVE3:
+       menu.nextRound();
+        println(timer2);
+       if(millis()-timer2 >= waveMenuTime){
+         state=State.WON;
        }
   
       break;
       case DEAD:
       
       menu.dead();
+      break;
+      
+      case WON:
+      background(0,255,0);
       break;
   }
 }
@@ -198,7 +267,7 @@ void dayCycle() {
 }
 
 void sheep(){
- for (int i = 0; i<sheep.length; i++) {
+ for (int i = 0; i<10; i++) {
         sheep[i].display();
         sheep[i].update();
         // Manage if sheep dies
@@ -273,12 +342,15 @@ void keyReleased() {
     break;
   case GAME:
     wolf.keyReleased();
+     menu.keyReleased();
     break;
      case GAME2:
     wolf.keyReleased();
+     menu.keyReleased();
     break;
      case GAME3:
     wolf.keyReleased();
+     menu.keyReleased();
     break;
     case DEAD:
     break;

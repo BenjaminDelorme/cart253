@@ -30,7 +30,6 @@ class UI {
   }
   void updateHP() {
     health = constrain (health, 0, 300);
-
     if (healthSheep == true) {
       health +=4;
     } else {
@@ -42,9 +41,7 @@ class UI {
     } else {
       health -=0.05;
     }
-     if(health == 0){
-  menu.dead();
-   }
+    
   }
   void updateStam() {
     health = constrain (health, 0, 100);
@@ -60,5 +57,7 @@ class UI {
   }
   void reset(){
    health = 300; 
+   health = -0.5;
+
   }
 }
