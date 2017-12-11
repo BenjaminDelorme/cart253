@@ -8,7 +8,6 @@ enum State {
     GAME3,
     WAVE,
     WAVE2,
-    WAVE3,
     DEAD,
     WON
 }
@@ -27,7 +26,8 @@ Wall wall;
 
 //Setting the variables
 PImage grass;
-PImage test;
+PImage nulll;
+PImage  days;
 PImage night;
 float day =4000;
 float startGame;
@@ -37,7 +37,7 @@ float timer = 0;
 float timer2;
 float timerHealth;
 float timerLength = 1;
-
+String BG = "BG";
 boolean roundOn=false;
 
 
@@ -56,11 +56,9 @@ void setup() {
   farmer = new Farmer(300, 400);
   menu = new Menus();
   wall = new Wall();
- 
   grass = loadImage("data/images/grass2.png");
-  test = loadImage("data/images/test.png");
-  night = loadImage("images/night.png");
-
+  days = loadImage("data/images/BG.png");
+  night = loadImage("data/images/BG_1.png");
   state = State.TITLE;
 }
 
@@ -211,7 +209,7 @@ void draw() {
        
   } if (roundOn==false){
     timer2 = millis();
-     state = State.WAVE3; 
+     state = State.WON; 
   } 
 
     //Goes to death screen if farmer sees you (YOU LOSE THE GAME)
@@ -225,6 +223,7 @@ void draw() {
        menu.nextRound();
         println(timer2);
        if(millis()-timer2 >= waveMenuTime){
+           hp.health = 300;
          state=State.GAME2;
        }
   
@@ -233,16 +232,10 @@ void draw() {
        menu.nextRound();
        println(timer2);
        if(millis()-timer2 >= waveMenuTime){
+           hp.health = 300;
          state=State.GAME3;
        }
-  
-      break;
-      case WAVE3:
-       menu.nextRound();
-        println(timer2);
-       if(millis()-timer2 >= waveMenuTime){
-         state=State.WON;
-       }
+ 
   
       break;
       case DEAD:
@@ -256,14 +249,15 @@ void draw() {
   }
 }
 
-
+//DayCycle function, to manage the timer/day n night background
 
 void dayCycle() {
-    image(test, 0, 0);
-  
-  if (timer>= day) {
-   image(night,0,0);
+  if (timer>= 0 && timer<=day) {
+       nulll=days;}
+       else{
+    nulll = night;
   }
+      image(nulll, 0, 0);
 }
 
 void sheep(){
