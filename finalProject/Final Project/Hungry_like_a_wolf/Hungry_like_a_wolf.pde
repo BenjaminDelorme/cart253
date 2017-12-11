@@ -142,8 +142,8 @@ void draw() {
       farmer.route();
       wolf.collision();
       println(timer);
-      sheep();
-      rabbit();
+      sheep2();
+      rabbit2();
       
       if(roundOn==true){
       dayCycle();
@@ -188,8 +188,8 @@ void draw() {
       farmer.route();
       wolf.collision();
       println(timer);
-      sheep();
-      rabbit();
+      sheep3();
+      rabbit3();
       
       if(roundOn==true){
       dayCycle();
@@ -218,7 +218,10 @@ void draw() {
       }
 
       break;
-      /////////////////////////////WAVE MENUS////////////////////////////////
+      
+      
+      
+     ///////////////// /////////////////////////////         WAVE MENUS       //////////////////////////////////////////////
       case WAVE:
        menu.nextRound();
         println(timer2);
@@ -249,6 +252,8 @@ void draw() {
   }
 }
 
+
+
 //DayCycle function, to manage the timer/day n night background
 
 void dayCycle() {
@@ -260,8 +265,29 @@ void dayCycle() {
       image(nulll, 0, 0);
 }
 
+
+
+
+   ///////////////////////////////////////////////    SHEEP FUNCTIONS   /////////////////////////////////////////////// 
 void sheep(){
- for (int i = 0; i<10; i++) {
+ for (int i = 0; i<sheep.length; i++) {
+        sheep[i].display();
+        sheep[i].update();
+        // Manage if sheep dies
+        if (dist(wolf.x, wolf.y, sheep[i].x, sheep[i].y)<30) {
+          sheep[i].dies();
+          timerHealth = millis();
+        }
+        //Manage regain health
+        if (sheep[i].sheepAlive == false) {
+          hp.healthSheep = true;
+        } 
+        if (hp.healthSheep == true && millis() - timerHealth >= timerLength) {
+          hp.healthSheep = false;
+        }
+      } 
+}void sheep2(){
+ for (int i = 0; i<sheep.length; i++) {
         sheep[i].display();
         sheep[i].update();
         // Manage if sheep dies
@@ -278,8 +304,65 @@ void sheep(){
         }
       } 
 }
+void sheep3(){
+ for (int i = 0; i<5; i++) {
+        sheep[i].display();
+        sheep[i].update();
+        // Manage if sheep dies
+        if (dist(wolf.x, wolf.y, sheep[i].x, sheep[i].y)<30) {
+          sheep[i].dies();
+          timerHealth = millis();
+        }
+        //Manage regain health
+        if (sheep[i].sheepAlive == false) {
+          hp.healthSheep = true;
+        } 
+        if (hp.healthSheep == true && millis() - timerHealth >= timerLength) {
+          hp.healthSheep = false;
+        }
+      } 
+}
+   ///////////////////////////////////////////////    RABBIT FUNCTIONS    /////////////////////////////////////////////// 
 void rabbit(){
   for (int i = 0; i<rabbit.length; i++) {
+        rabbit[i].display();
+        rabbit[i].update();
+        rabbit[i].runAway();
+        // Manage if rabbit dies
+        if (dist(wolf.x, wolf.y, rabbit[i].x, rabbit[i].y)<20) {
+          rabbit[i].dies();
+          timerHealth = millis();
+        }
+        if (rabbit[i].rabbitAlive == false) {
+          hp.healthRabbit = true;
+        } 
+        if (hp.healthRabbit == true && millis() - timerHealth >= timerLength) {
+          hp.healthRabbit = false;
+        }
+      
+      } 
+}
+void rabbit2(){
+  for (int i = 0; i<rabbit.length; i++) {
+        rabbit[i].display();
+        rabbit[i].update();
+        rabbit[i].runAway();
+        // Manage if rabbit dies
+        if (dist(wolf.x, wolf.y, rabbit[i].x, rabbit[i].y)<20) {
+          rabbit[i].dies();
+          timerHealth = millis();
+        }
+        if (rabbit[i].rabbitAlive == false) {
+          hp.healthRabbit = true;
+        } 
+        if (hp.healthRabbit == true && millis() - timerHealth >= timerLength) {
+          hp.healthRabbit = false;
+        }
+      
+      } 
+}
+void rabbit3(){
+  for (int i = 0; i<7; i++) {
         rabbit[i].display();
         rabbit[i].update();
         rabbit[i].runAway();
