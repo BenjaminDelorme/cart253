@@ -17,6 +17,8 @@ class Farmer{
     y=tempY;
     farmer = loadImage("images/farmer.png");
     farmer2 = loadImage("images/farmer2.png");
+    farmer.resize(60,80);
+    farmer2.resize(60,80);
   }
 
   void update(){
@@ -72,10 +74,8 @@ class Farmer{
    scale(1);
    if (LtR==true){
    image(farmer,x,y);
-   farmer.resize(60,80);
    }else{
      image(farmer2,x,y);
-   farmer2.resize(60,80);
    }
   popMatrix();
   }

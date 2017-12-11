@@ -4,19 +4,28 @@ class Wolf {
   float turnSpeed = 0;
   int size = 75;
   int large = 25;
+  float timer;
   PImage wolf;
-
+  PImage wolf2;
+  PImage wolf3;
+  PImage ani;
+  String which = "2";
   float x;
   float y;
   boolean sneak;
   boolean sprint;
   boolean walking;
   Wolf(float tempX, float tempY) {
-    wolf = loadImage("data/images/wolf_2.png");
-    wolf.resize(size, large);
+    wolf = loadImage("data/images/wolf_1.png");
+    wolf2 = loadImage("data/images/wolf_2.png");
+    wolf3 = loadImage("data/images/wolf_4.png");
+    wolf.resize(75, 25);
+    wolf2.resize(75, 25);
+    wolf3.resize(75, 25);
+
     x = tempX;
     y = tempY;
-    
+    ani=wolf;
   }
 
 
@@ -72,15 +81,14 @@ class Wolf {
 
 
   void display() {
-
+  println(frameCount % 20);
     pushMatrix();
     float hitBox= x;
     float hitBoxY= y;
     rectMode(CENTER);
     translate(hitBox, hitBoxY);
     rotate(theta);
-    image(wolf, 0-wolf.width/2, 0-12);
-    wolf.resize(75, 25);
+    image(ani, 0-wolf.width/2, 0-12);
     popMatrix();
   }
 
@@ -110,23 +118,45 @@ class Wolf {
     }
 
     if (keyCode == UP) {
+      if(frameCount % 40 >= 20){
+       ani=wolf2; 
+      }else{
+        ani=wolf3;
+      }
       walking = true;
-    } else if (keyCode == LEFT) {
+    } if (keyCode == LEFT) {
       turnSpeed = -0.07;
     } else if (keyCode == RIGHT) {
-      turnSpeed = 0.07;
+     turnSpeed = 0.07;
     }
 
 
 
     if (walking == true && sprint==true) { 
       speed = 6;
+       if(frameCount % 10 >= 5){
+       ani=wolf2; 
+      }else{
+        ani=wolf3;
+      }
     } else if (walking == true && sneak==true) {
       speed = 0.8;
+       if(frameCount % 100 >= 50){
+       ani=wolf2; 
+      }else{
+        ani=wolf3;
+      }
     } else if (walking == true) {
       speed = 2.5;
       sprint=false;
       sneak = false;
+       if(frameCount % 40 >= 20){
+       ani=wolf2; 
+      }else{
+        ani=wolf3;
+      }
+    } else if(walking ==false){
+      ani=wolf;
     }
   }
 
@@ -134,6 +164,7 @@ class Wolf {
     if (keyCode == UP) {
       speed = 0;
       walking =false;
+      ani=wolf;
     } else if (keyCode == LEFT) {
       turnSpeed = 0;
     } else if (keyCode == RIGHT) {

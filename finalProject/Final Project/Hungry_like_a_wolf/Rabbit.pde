@@ -18,6 +18,8 @@ float vy;
   y = tempY;
   rabbit = loadImage("images/rabbit.png");
   mrabbit = loadImage("images/mrabbit.png");
+  rabbit.resize(30,30);
+  mrabbit.resize(26,26);
 }
 
 
@@ -45,7 +47,6 @@ float vy;
     if (rabbitAlive){
      rectMode(CENTER);
       image(rabbit,x,y);
-     rabbit.resize(30,30);
     }
   }
   
@@ -53,7 +54,6 @@ float vy;
     if (rabbitAlive){
          rectMode(CENTER);
       image(mrabbit,x,y);
-     mrabbit.resize(26,26);
     }
   }
  

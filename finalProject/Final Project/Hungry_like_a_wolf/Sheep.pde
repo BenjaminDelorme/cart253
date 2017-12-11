@@ -11,6 +11,7 @@ float y;
   x = tempX;
   y = tempY;
      sheep = loadImage("data/images/sheep.png");
+     sheep.resize(35, 55);
 }
 
 
@@ -34,7 +35,6 @@ float y;
       float hitBoxY = y+17;
     image(sheep, x, y);
     rect(hitBox,hitBoxY,20,35);
-    sheep.resize(35, 55);
     }
   }
   

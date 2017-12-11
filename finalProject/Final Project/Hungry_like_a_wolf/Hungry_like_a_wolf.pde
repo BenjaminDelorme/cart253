@@ -31,9 +31,9 @@ PImage grass;
 PImage nulll;
 PImage  days;
 PImage night;
-float day =4000;
+float day =30000;
 float startGame;
-float wave = 7000;
+float wave = 60000;
 float waveMenuTime=2000;
 float timer = 0;
 float timer2;
@@ -45,8 +45,8 @@ boolean roundOn=false;
 
 //Setup for main program, calling in and loading the classes
 void setup() {
-  //size(1000,1000);
-  fullScreen();
+  size(1000,1000);
+  //fullScreen();
   wolf = new Wolf(width/2, height-100);
   hp = new UI(40, 40, 300);
   stamina = new UI(40, 80, 100);
@@ -94,7 +94,7 @@ void draw() {
       wolf.display();
       wolf.hitBox();
       wolf.update();
-      
+      //println(timer);
       farmer.display();
       farmer.update();
       farmer.route();
@@ -142,6 +142,7 @@ void draw() {
   //Apply methods and functions for game2 scenario
       timer=millis() - startGame - wave-waveMenuTime;
       roundOn=true;
+     // println(timer);
       image(grass, 0, 0);
       wolf.display();
       wolf.hitBox();
@@ -192,7 +193,7 @@ void draw() {
       case GAME3:
   //Apply methods and functions for game3 scenario
       timer=millis() - startGame - wave*2 -waveMenuTime*2;
-
+      //println(timer);
       roundOn=true;
       image(grass, 0, 0);
       wolf.display();
