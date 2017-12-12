@@ -1,8 +1,8 @@
 class Menus {
-  int waveN =0;
+  String wave2 = "Wave 2";
+  String wave3 = "Wave 3";
   String dead = "You are dead";
   String title = "Click any key to play";
-  String nextRound = "Wave " + waveN;
   boolean clickTitle = false;
   boolean clickWave = false;
   boolean timeWaveM;
@@ -29,13 +29,19 @@ class Menus {
     text(dead, width/2, height/2);
   }
 
-  void nextRound() {
+    void wave2() {
     timer = millis();
     background(0);
     fill(250);
     textAlign(CENTER);
-    text(nextRound, width/2, height/2);
-    waveN +=1;
+    text(wave2, width/2, height/2);
+    } 
+    void wave3() {
+    timer = millis();
+    background(0);
+    fill(250);
+    textAlign(CENTER);
+    text(wave3, width/2, height/2);
     } 
 
 

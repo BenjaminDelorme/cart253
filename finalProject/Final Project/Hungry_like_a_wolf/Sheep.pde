@@ -42,12 +42,11 @@ float y;
   
 void dies(){
   sheepAlive = false;
-  sheepBeh.play(1,0.2);
+  sheepBeh.play(1,0.4);
+    hp.health = hp.health+20;
 }
 
-void reset(){
-  
-}
+
   
   
 }

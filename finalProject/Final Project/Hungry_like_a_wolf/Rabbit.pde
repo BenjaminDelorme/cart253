@@ -78,6 +78,13 @@ float vy;
 void dies(){
   rabbitAlive = false;
   bunny.play(1,0.2);
+  hp.health = hp.health+10;
+}
+
+void diesM(){
+  rabbitAlive = false;
+  bunny.play(1,0.2);
+  hp.health = hp.health+100;
 }
 
   
