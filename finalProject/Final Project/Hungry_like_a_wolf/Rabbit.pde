@@ -47,7 +47,7 @@ float vy;
     if (rabbitAlive){
      rectMode(CENTER);
       image(rabbit,x,y);
-    }
+    } 
   }
   
   void mDisplay(){
@@ -77,6 +77,7 @@ float vy;
   
 void dies(){
   rabbitAlive = false;
+  bunny.play(1,0.2);
 }
 
   

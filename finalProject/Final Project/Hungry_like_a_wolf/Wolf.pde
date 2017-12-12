@@ -118,11 +118,7 @@ class Wolf {
     }
 
     if (keyCode == UP) {
-      if(frameCount % 40 >= 20){
-       ani=wolf2; 
-      }else{
-        ani=wolf3;
-      }
+     animation();
       walking = true;
     } if (keyCode == LEFT) {
       turnSpeed = -0.07;
@@ -141,7 +137,7 @@ class Wolf {
       }
     } else if (walking == true && sneak==true) {
       speed = 0.8;
-       if(frameCount % 100 >= 50){
+       if(frameCount % 50 >= 26){
        ani=wolf2; 
       }else{
         ani=wolf3;
@@ -150,11 +146,7 @@ class Wolf {
       speed = 2.5;
       sprint=false;
       sneak = false;
-       if(frameCount % 40 >= 20){
-       ani=wolf2; 
-      }else{
-        ani=wolf3;
-      }
+       animation();
     } else if(walking ==false){
       ani=wolf;
     }
@@ -170,7 +162,17 @@ class Wolf {
     } else if (keyCode == RIGHT) {
       turnSpeed = 0;
     }
-
+    
+    
+    if (keyCode == LEFT && walking == true) {
+      turnSpeed = 0;
+    animation();
+    } if (keyCode == RIGHT && walking == true) {
+      turnSpeed = 0;
+      animation();
+    }
+    
+    
     if (keyCode == 16 && walking == true) {
       sprint = false;
       speed = 2.5;
@@ -178,6 +180,7 @@ class Wolf {
       sprint = false;
       speed = 0;
     }
+
 
     if (keyCode == 17 && walking ==true ) {
       sneak = false;
@@ -187,4 +190,13 @@ class Wolf {
       speed = 0;
     }
   }
+  
+  
+  void animation(){
+  if(frameCount % 40 <= 20){
+       ani=wolf2; 
+      }else{
+        ani=wolf3;
+      }
+}
 }

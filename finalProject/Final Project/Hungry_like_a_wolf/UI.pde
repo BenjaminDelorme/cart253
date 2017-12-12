@@ -61,9 +61,5 @@ class UI {
      wolf.sprint=false; 
     }
   }
-  void reset(){
-   health = 300; 
-   health = -0.5;
 
-  }
 }

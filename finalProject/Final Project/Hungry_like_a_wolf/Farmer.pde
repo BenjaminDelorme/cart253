@@ -44,9 +44,9 @@ class Farmer{
   }
   
   void sight(){
-    if(vx>=0&& wolf.y<=y+80&&wolf.y>=y-40 && wolf.x >= x && wolf.x<=x+400){
+    if(vx>=0&& wolf.y<=y+80&&wolf.y>=y-40 && wolf.x >= x && wolf.x<=x+550){
      lost =true;
-    } else if(vx<=0&& wolf.y<=y+80&&wolf.y>=y-40 && wolf.x <= x && wolf.x>=x-400){
+    } else if(vx<=0&& wolf.y<=y+80&&wolf.y>=y-40 && wolf.x <= x && wolf.x>=x-550){
       lost = true;
     } else{
       lost=false;

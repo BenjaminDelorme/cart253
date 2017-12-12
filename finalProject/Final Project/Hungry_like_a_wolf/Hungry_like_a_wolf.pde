@@ -1,5 +1,7 @@
+import processing.sound.*;
+
 //HUNGRY LIKE A WOLF//
-//Main page
+
 enum State {
   NONE, 
     TITLE, 
@@ -11,6 +13,15 @@ enum State {
     DEAD,
     WON
 }
+//Create all sounds
+SoundFile howl;
+SoundFile step;
+SoundFile sheepBeh;
+SoundFile bunny;
+SoundFile chomp;
+SoundFile daySFX;
+SoundFile gun;
+SoundFile music;
 
 //Class creation
 State state;
@@ -38,15 +49,29 @@ float waveMenuTime=2000;
 float timer = 0;
 float timer2;
 float timerHealth;
-float timerLength = 0.5;
+float timerLength = 0.3;
 String BG = "BG";
 boolean roundOn=false;
 
 
 //Setup for main program, calling in and loading the classes
 void setup() {
-  size(1000,1000);
-  //fullScreen();
+  //size(1000,1000);
+  
+  //loading all the sounds//
+  howl = new SoundFile(this, "sounds/howling.mp3");
+  step = new SoundFile(this, "sounds/walk.mp3");
+  sheepBeh= new SoundFile(this, "sounds/sheep.mp3");
+  bunny = new SoundFile(this, "sounds/screech.mp3");
+  chomp = new SoundFile(this, "sounds/chomp.mp3");
+  daySFX = new SoundFile(this, "sounds/day.mp3");
+  gun = new SoundFile(this, "sounds/gun.mp3");
+  music = new SoundFile(this, "sounds/music.mp3");
+  music.amp(0.1);
+  chomp.amp(0.1);
+  daySFX.amp(0.5);
+  
+  fullScreen();
   wolf = new Wolf(width/2, height-100);
   hp = new UI(40, 40, 300);
   stamina = new UI(40, 80, 100);
@@ -64,6 +89,9 @@ void setup() {
   days = loadImage("data/images/BG.png");
   night = loadImage("data/images/BG_1.png");
   state = State.TITLE;
+  howl.play(1,0.2);
+
+ 
 }
 
 //Setting the classe's methods in the draw loop
@@ -76,10 +104,11 @@ void draw() {
 
 
   case TITLE:
-    menu.title();
-    if (menu.clickTitle) {
+    menu.title();    if (menu.clickTitle) {
       state= State.GAME;
      startGame =millis();
+     music.play();
+     daySFX.play();
     }
     break;
 
@@ -100,6 +129,7 @@ void draw() {
       farmer.route();
       farmer.turnAround();
       farmer.sight();
+      farmer.sightAround();
       farmer.turnAround();
       
       wolf.collision();
@@ -126,11 +156,13 @@ void draw() {
        
   } if (roundOn==false){
     timer2 = millis();
+    daySFX.stop();
      state = State.WAVE; 
   } 
 
 
       if(farmer.lost == true || farmer2.lost==true){
+        gun.play();
        state = State.DEAD;
       }
 
@@ -152,6 +184,7 @@ void draw() {
       farmer.update();
       farmer.route();
       farmer.sight();
+      farmer.sightAround();
       farmer.turnAround();
       farmer2.turnAround();
       farmer2.display();
@@ -179,6 +212,7 @@ void draw() {
        
   } if (roundOn==false){
     timer2 = millis();
+    daySFX.stop();
      state = State.WAVE2; 
   } 
 
@@ -203,6 +237,7 @@ void draw() {
       farmer.update();
       farmer.route();
       farmer.sight();
+      farmer.sightAround();
       farmer.turnAround();
       farmer2.turnAround();
       farmer2.display();
@@ -231,6 +266,7 @@ void draw() {
        
   } if (roundOn==false){
     timer2 = millis();
+    daySFX.stop();
      state = State.WON; 
   } 
 
@@ -252,6 +288,7 @@ void draw() {
            wolf.y = height-100;
            wolf.speed = 0;
            wolf.turnSpeed=0;
+           daySFX.play();
          state=State.GAME2;
        }
   
@@ -264,6 +301,7 @@ void draw() {
            wolf.y = height-100;
            wolf.speed = 0;
            wolf.turnSpeed=0;
+           daySFX.play();
          state=State.GAME3;
        }
  
@@ -286,8 +324,8 @@ void draw() {
 
 void dayCycle() {
   if (timer>= 0 && timer<=day) {
-       nulll=days;}
-       else{
+       nulll=days;
+  }else{
     nulll = night;
   }
       image(nulll, 0, 0);
@@ -399,12 +437,12 @@ void rabbit(){
         rabbit[i].update();
         rabbit[i].runAway();
         // Manage if rabbit dies
-        if (dist(wolf.x, wolf.y, rabbit[i].x, rabbit[i].y)<20) {
+        if (dist(wolf.x, wolf.y, rabbit[i].x, rabbit[i].y)<16) {
           rabbit[i].dies();
           timerHealth = millis();
-        }
+        }  
         if (rabbit[i].rabbitAlive == false) {
-          hp.healthRabbit = true;
+          hp.healthRabbit = true; 
         } 
         if (hp.healthRabbit == true && millis() - timerHealth >= timerLength) {
           hp.healthRabbit = false;
