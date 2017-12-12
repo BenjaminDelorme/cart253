@@ -48,6 +48,7 @@ float wave = 60000;
 float waveMenuTime=2000;
 float timer = 0;
 float timer2;
+float timerLength = 1;
 String BG = "BG";
 boolean roundOn=false;
 
@@ -55,7 +56,7 @@ boolean roundOn=false;
 //Setup for main program, calling in and loading the classes
 void setup() {
   size(1000, 1000);
-
+  //fullScreen();
   //loading all the sounds//
   howl = new SoundFile(this, "sounds/howling.mp3");
   step = new SoundFile(this, "sounds/walk.mp3");
@@ -69,7 +70,6 @@ void setup() {
   chomp.amp(0.1);
   daySFX.amp(0.5);
 
-  //fullScreen();
   wolf = new Wolf(width/2, height-100);
   hp = new UI(40, 40, 300);
   stamina = new UI(40, 80, 100);
@@ -126,7 +126,7 @@ void draw() {
     farmer.route();
     farmer.turnAround();
     //farmer.sight();
-    //farmer.sightAround();
+    farmer.sightAround();
     wolf.collision();
     sheep();
     rabbit();
@@ -157,7 +157,6 @@ void draw() {
 
 
     if (farmer.lost == true || farmer2.lost==true) {
-      gun.play();
       state = State.DEAD;
     }
 
@@ -169,7 +168,7 @@ void draw() {
     //Apply methods and functions for game2 scenario
     timer=millis() - startGame - wave-waveMenuTime;
     roundOn=true;
-    // println(timer);
+     println(timer);
     image(grass, 0, 0);
     wolf.display();
     wolf.hitBox();

@@ -38,10 +38,25 @@ class Farmer{
   
   
   void sightAround(){
+    if(wolf.sneak){
+      ellipseMode(CENTER);
+    fill(255,0,0,10);
+    ellipse(x+20,y+30,range/2,range/2);
+    }else if (LtR){
+    ellipseMode(CENTER);
+    fill(255,0,0,20);
+    ellipse(x+10,y+30,range+20,range+20);
+    } else{
+    fill(255,0,0,20);
+    ellipse(x+20,y+30,range+20,range+20);
+    }
+    
    if(wolf.sneak ==true && wolf.x >= x-range/3 && wolf.x <= x+range/3 && wolf.y <= y+range/3 && wolf.y>= y-range/3){
     lost=true;
+    gun.play();
    } else  if(wolf.sneak ==false && wolf.x >= x-range/2 && wolf.x <= x+range/2 && wolf.y <= y+range/2 && wolf.y>= y-range/2){
     lost=true;
+    gun.play();
    } else{
     lost=false;
   }

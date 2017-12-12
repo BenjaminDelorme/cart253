@@ -2,9 +2,7 @@ class UI {
   float x;
   float y;
   float health;
-  boolean healthSheep = false;
-  boolean healthRabbit = false;
-  boolean healthmRabbit = false;
+
 
 
 
@@ -31,26 +29,7 @@ class UI {
   }
   void updateHP() {
     health = constrain (health, 0, 300);
-    if (healthSheep == true) {
-      health +=1.5;
-    } else {
-      health -=0.06;
-      healthSheep = false;
-    }
-
-    if (healthRabbit == true) {
-      health +=1;
-    } else {
-      healthRabbit = false;
-      health -=0.06;
-    }
-     if (healthmRabbit == true) {
-      health +=10;
-    } else {
-      health -=0.06;
-      healthmRabbit == true
-    }
-    
+    health -=0.2;
   }
   void updateStam() {
     health = constrain (health, 0, 100);
