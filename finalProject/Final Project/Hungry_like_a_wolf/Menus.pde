@@ -1,4 +1,10 @@
+
+///////////////////////////////////////////////   CLASS MENUS   /////////////////////////////////////////////// 
+
+
 class Menus {
+  
+  ///////PROPRETIES////////
   String wave2 = "Wave 2";
   String wave3 = "Wave 3";
   String dead = "You are dead";
@@ -8,6 +14,8 @@ class Menus {
   boolean timeWaveM;
   float timerL = 2000;
   float timer=0;
+  
+    ///////METHODS////////
   Menus() {
   }
 
@@ -19,16 +27,20 @@ class Menus {
     text(title, width/2, height/2);
   }
 
+/////Screen for the main menu (title screen)
   void mainMenu() {
     background(0, 250, 0);
   }
 
+/////Screen for the death menu (when you die)
   void dead() {
     background(0);
     textAlign(CENTER);
     text(dead, width/2, height/2);
   }
 
+
+/////Screens for the wave title-when you switch round
     void wave2() {
     timer = millis();
     background(0);
@@ -48,7 +60,8 @@ class Menus {
 
 
 
-
+///////KEY RELATED/////
+///KeyPressed for the title screen
   void keyPressed() {
     if (keyPressed) {
       clickTitle = true;

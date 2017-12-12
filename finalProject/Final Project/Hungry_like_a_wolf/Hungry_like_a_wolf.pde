@@ -2,6 +2,8 @@ import processing.sound.*;
 
 //HUNGRY LIKE A WOLF//
 
+    ///////////////////////////////////////////////    STATES    /////////////////////////////////////////////// 
+
 enum State {
   NONE, 
     TITLE, 
@@ -13,7 +15,8 @@ enum State {
     DEAD, 
     WON
 }
-//Create all sounds
+   ///////////////////////////////////////////////    IMPORT SOUNDS    /////////////////////////////////////////////// 
+
 SoundFile howl;
 SoundFile step;
 SoundFile sheepBeh;
@@ -23,7 +26,8 @@ SoundFile daySFX;
 SoundFile gun;
 SoundFile music;
 
-//Class creation
+   ///////////////////////////////////////////////   CREATE CLASSES    /////////////////////////////////////////////// 
+
 State state;
 Menus menu;
 Wolf wolf;
@@ -34,29 +38,34 @@ Farmer farmer;
 Farmer farmer2;
 Rabbit[] rabbit = new Rabbit[12];
 Rabbit mRabbit;
-Wall wall;
 
 
-//Setting the variables
+    ///////////////////////////////////////////////    VARIABLES    /////////////////////////////////////////////// 
+    ////Images
 PImage grass;
 PImage nulll;
 PImage  days;
 PImage night;
-float day =30000;
+    ////Floats
+float day =40000;
 float startGame;
 float wave = 60000;
 float waveMenuTime=2000;
 float timer = 0;
 float timer2;
 float timerLength = 1;
+
 String BG = "BG";
+
 boolean roundOn=false;
 
 
-//Setup for main program, calling in and loading the classes
+    ///////////////////////////////////////////////    SETUP    /////////////////////////////////////////////// 
+    
+    ////Sounds, loading the sounds with their given variables
 void setup() {
-  size(1000, 1000);
-  //fullScreen();
+  //size(1000, 1000);
+  fullScreen();
   //loading all the sounds//
   howl = new SoundFile(this, "sounds/howling.mp3");
   step = new SoundFile(this, "sounds/walk.mp3");
@@ -69,7 +78,8 @@ void setup() {
   music.amp(0.1);
   chomp.amp(0.1);
   daySFX.amp(0.5);
-
+  
+    ////Classes, loading the classes with their given variables
   wolf = new Wolf(width/2, height-100);
   hp = new UI(40, 40, 300);
   stamina = new UI(40, 80, 100);
@@ -83,15 +93,19 @@ void setup() {
   farmer = new Farmer(400, 400);
   farmer2 = new Farmer(width/2, height/2);
   menu = new Menus();
-  wall = new Wall();
+      ////Images, loading the images with their given variables
   grass = loadImage("data/images/grass2.png");
   days = loadImage("data/images/BG.png");
   night = loadImage("data/images/BG_1.png");
+  
+      ////Start
   state = State.TITLE;
   howl.play(1, 0.2);
 }
 
-//Setting the classe's methods in the draw loop
+    ///////////////////////////////////////////////    DRAW    /////////////////////////////////////////////// 
+
+//Setting everything in the draw loop, categorized by each state that's happening
 void draw() {
 
   switch (state) {
@@ -99,7 +113,7 @@ void draw() {
   case NONE:
     break;
 
-
+///Title state: loading the title screen and applying the desired effect when triggered(keyPressed)
   case TITLE:
     menu.title();    
     if (menu.clickTitle) {
@@ -111,11 +125,12 @@ void draw() {
     break;
 
 
-    ///////////////////////////////////////////////    WAVE1    /////////////////////////////////////////////// 
+
+//////////////Game(s) states: loading everything for all three waves of the game
+///////////////////////////    WAVE1    //////////////////////////////////
   case GAME:
-    //Apply methods and functions for game1 scenario
+    //Apply methods and functions for game 1 scenario
     timer=millis() - startGame;
-    //timer=millis() - startGame - wave-waveMenuTime;
     roundOn=true;
     image(grass, 0, 0);
     wolf.display();
@@ -125,7 +140,6 @@ void draw() {
     farmer.update();
     farmer.route();
     farmer.turnAround();
-    //farmer.sight();
     farmer.sightAround();
     wolf.collision();
     sheep();
@@ -145,7 +159,7 @@ void draw() {
     hp.updateHP();
     stamina.displayStam();
     stamina.updateStam();
-
+    // Setting the necessary so when the wave(round) ends, it goes to the wave 2 screen
     if (timer >= wave && timer <= wave+1000) {
       roundOn=false;
     } 
@@ -154,7 +168,11 @@ void draw() {
       daySFX.stop();
       state = State.WAVE;
     } 
-
+    
+   //Setting the necessary so the game know when you're dead and it switches to the death screen
+  if(hp.health<=0){
+    state = State.DEAD;
+  }
 
     if (farmer.lost == true || farmer2.lost==true) {
       state = State.DEAD;
@@ -162,10 +180,11 @@ void draw() {
 
 
     break;
+    
+    
     ///////////////////////////////////////////////    WAVE2    /////////////////////////////////////////////// 
-
   case GAME2:
-    //Apply methods and functions for game2 scenario
+    //Apply methods and functions for game2 scenario(+1 farmer,reset time et less animals)
     timer=millis() - startGame - wave-waveMenuTime;
     roundOn=true;
      println(timer);
@@ -177,7 +196,6 @@ void draw() {
     farmer.display();
     farmer.update();
     farmer.route();
-    farmer.sight();
     farmer.sightAround();
     farmer.turnAround();
     farmer2.turnAround();
@@ -188,6 +206,7 @@ void draw() {
     rabbit2();
     magicRabbit2();
     mRabbit.y = constrain(mRabbit.y, height/2, height);
+        //Setting background image depending on time of the game(day and night)
     if (roundOn==true) {
       dayCycle();
     } else {
@@ -200,7 +219,7 @@ void draw() {
     stamina.displayStam();
     stamina.updateStam();
 
-
+    // Setting the necessary so when the wave(round) ends, it goes to the wave 3 screen
     if (timer >= wave && timer <= wave+1000) {
       roundOn=false;
     } 
@@ -210,16 +229,21 @@ void draw() {
       state = State.WAVE2;
     } 
 
-    //Goes to death screen if farmer sees you (YOU LOSE THE GAME)
+    //Setting the necessary so the game know when you're dead and it switches to the death screen
+    if(hp.health<=0){
+    state = State.DEAD;
+  }
     if (farmer.lost == true || farmer2.lost==true) {
       state = State.DEAD;
     }
 
     break;
+    
+    
+    
     ///////////////////////////////////////////////    WAVE3    /////////////////////////////////////////////// 
-
   case GAME3:
-    //Apply methods and functions for game3 scenario
+    //Apply methods and functions for game3 scenario (Reset time et less animals)
     timer=millis() - startGame - wave*2 -waveMenuTime*2;
     //println(timer);
     roundOn=true;
@@ -230,7 +254,6 @@ void draw() {
     farmer.display();
     farmer.update();
     farmer.route();
-    farmer.sight();
     farmer.sightAround();
     farmer.turnAround();
     farmer2.turnAround();
@@ -242,7 +265,8 @@ void draw() {
     rabbit3();
     magicRabbit3();
     mRabbit.y = constrain(mRabbit.y, height/2, height);
-
+    
+     //Setting background image depending on time of the game(day and night)
     if (roundOn==true) {
       dayCycle();
     } else {
@@ -254,7 +278,8 @@ void draw() {
     hp.updateHP();
     stamina.displayStam();
     stamina.updateStam();
-
+    
+     // Setting the necessary so when the wave(round) ends, it goes to the winning screen( CUZ YOU WON =) )
     if (timer >= wave && timer <= wave+1000) {
       roundOn=false;
     } 
@@ -264,7 +289,10 @@ void draw() {
       state = State.WON;
     } 
 
-    //Goes to death screen if farmer sees you (YOU LOSE THE GAME)
+    //Setting the necessary so the game know when you're dead and it switches to the death screen
+    if(hp.health<=0){
+    state = State.DEAD;
+  }
     if (farmer.lost == true || farmer2.lost==true) {
       state = State.DEAD;
     }
@@ -273,7 +301,9 @@ void draw() {
 
 
 
-    ///////////////// /////////////////////////////         WAVE MENUS       //////////////////////////////////////////////
+
+  ////// //////////////////////         WAVE MENUS       /////////////////////////////////
+  //wave 2: resets wolf location, background sfx, health and after 2sec, send to game 2 state
   case WAVE:
     menu.wave2();
     if (millis()-timer2 >= waveMenuTime) {
@@ -285,8 +315,10 @@ void draw() {
       daySFX.play();
       state=State.GAME2;
     }
-
     break;
+    
+    
+  //wave 3: resets wolf location, background sfx, health and after 2sec, send to game 3 state
   case WAVE2:
     menu.wave3();
     if (millis()-timer2 >= waveMenuTime) {
@@ -298,14 +330,16 @@ void draw() {
       daySFX.play();
       state=State.GAME3;
     }
-
-
     break;
+    
+    
+    //Appears when you die/lose the game
   case DEAD:
-
     menu.dead();
     break;
-
+    
+    
+    //Appears when you win the game
   case WON:
     background(0, 255, 0);
     break;
@@ -314,10 +348,10 @@ void draw() {
 
 
 
-//DayCycle function, to manage the timer/day n night background
 
+//DayCycle function, to manage the timer/day n night background
 void dayCycle() {
-  if (timer>= 0 && timer<=day) {
+  if (timer<=day) {
     nulll=days;
   } else {
     nulll = night;
@@ -328,41 +362,47 @@ void dayCycle() {
 
 
 
-///////////////////////////////////////////////    SHEEP FUNCTIONS   /////////////////////////////////////////////// 
+
+////////////////////////////////////    SHEEP FUNCTIONS   ////////////////////////////////////////
+//3 times to reset the number every time(Call in different function each wave)
 void sheep() {
   for (int i = 0; i<sheep.length; i++) {
     sheep[i].display();
     sheep[i].update();
-    // Manage if sheep dies
-    if (dist(wolf.x, wolf.y, sheep[i].x, sheep[i].y)<20 &&sheep[i].sheepAlive) {
+    // Manage if sheep dies(remove display+gain health)
+    if (dist(wolf.x, wolf.y, sheep[i].x, sheep[i].y)<25 &&sheep[i].sheepAlive) {
       sheep[i].dies();
     }
   }
 }
 void sheep2() {
-  for (int i = 0; i<sheep.length; i++) {
+  for (int i = 0; i<10; i++) {
     sheep[i].display();
     sheep[i].update();
     // Manage if sheep dies
-    if (dist(wolf.x, wolf.y, sheep[i].x, sheep[i].y)<20 &&sheep[i].sheepAlive) {
+    if (dist(wolf.x, wolf.y, sheep[i].x, sheep[i].y)<25 &&sheep[i].sheepAlive) {
       sheep[i].dies();
     }
   }
 }
 void sheep3() {
-  for (int i = 0; i<5; i++) {
+  for (int i = 0; i<6; i++) {
     sheep[i].display();
     sheep[i].update();
     // Manage if sheep dies
-    if (dist(wolf.x, wolf.y, sheep[i].x, sheep[i].y)<20 &&sheep[i].sheepAlive) {
+    if (dist(wolf.x, wolf.y, sheep[i].x, sheep[i].y)<25 &&sheep[i].sheepAlive) {
       sheep[i].dies();
     }
   }
 }
-///////////////////////////////////////////////    RABBIT FUNCTIONS    /////////////////////////////////////////////// 
+
+
+///////////////////////////////    RABBIT FUNCTIONS    /////////////////////////////////// 
+//3 times to reset the magical rabbit every time(Call in different function each wave)
 void magicRabbit() {
   mRabbit.mDisplay();
   mRabbit.update(); 
+   // Manage if magical bunny dies(remove display+gain health)
   if (dist(wolf.x, wolf.y, mRabbit.x, mRabbit.y)<20 && mRabbit.rabbitAlive) {
     mRabbit.diesM();
   }
@@ -381,30 +421,34 @@ void magicRabbit3() {
     mRabbit.diesM();
   }
 }
+
+
+
+//3 times to reset the number of rabbit every time(Call in different function each wave)
 void rabbit() {
   for (int i = 0; i<rabbit.length; i++) {
     rabbit[i].display();
     rabbit[i].update();
     rabbit[i].runAway();
-    // Manage if rabbit dies
-    if (dist(wolf.x, wolf.y, rabbit[i].x, rabbit[i].y)<16&&rabbit[i].rabbitAlive) {
+    // Manage if rabbit dies(remove display + gain health)
+    if (dist(wolf.x, wolf.y, rabbit[i].x, rabbit[i].y)<23&&rabbit[i].rabbitAlive) {
       rabbit[i].dies();
     }
   }
 }
 void rabbit2() {
-  for (int i = 0; i<rabbit.length; i++) {
+  for (int i = 0; i<11; i++) {
     rabbit[i].display();
     rabbit[i].update();
     rabbit[i].runAway();
     // Manage if rabbit dies
-    if (dist(wolf.x, wolf.y, rabbit[i].x, rabbit[i].y)<20&&rabbit[i].rabbitAlive) {
+    if (dist(wolf.x, wolf.y, rabbit[i].x, rabbit[i].y)<23&&rabbit[i].rabbitAlive) {
       rabbit[i].dies();
     }
   }
 }
 void rabbit3() {
-  for (int i = 0; i<7; i++) {
+  for (int i = 0; i<8; i++) {
     rabbit[i].display();
     rabbit[i].update();
     rabbit[i].runAway();
@@ -415,7 +459,10 @@ void rabbit3() {
   }
 }
 
-//Setting the key related methods
+///////////////////////////////////////////////   KEYPRESSED    /////////////////////////////////////////////// 
+
+
+//Applying the keyPressed methods for wolf and menus for each state
 void keyPressed() {
   switch (state) {
   case NONE:
@@ -443,6 +490,10 @@ void keyPressed() {
   }
 }
 
+
+
+///////////////////////////////////////////////   KEYRELEASED   /////////////////////////////////////////////// 
+//Applying the keyReleased methods for wolf and menus for each state
 void keyReleased() {
   switch (state) {
   case NONE:
