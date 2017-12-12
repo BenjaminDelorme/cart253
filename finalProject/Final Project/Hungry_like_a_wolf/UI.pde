@@ -32,13 +32,13 @@ class UI {
   void updateHP() {
     health = constrain (health, 0, 300);
     if (healthSheep == true) {
-      health +=4;
+      health +=2.5;
     } else {
       health -=0.05;
     }
 
     if (healthRabbit == true) {
-      health +=2;
+      health +=1;
     } else {
       health -=0.05;
     }

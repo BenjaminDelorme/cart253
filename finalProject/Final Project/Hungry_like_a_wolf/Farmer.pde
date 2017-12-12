@@ -7,7 +7,7 @@ class Farmer{
   float y;
   float vx;
   float vy;
-  float range = 300;
+  float range = 400;
   boolean LtR=true;
   float tx=random(20,60);
   float ty=random(20,60);
@@ -38,9 +38,13 @@ class Farmer{
   
   
   void sightAround(){
-   if(wolf.x >= x-range/2 && wolf.x <= x+range/2 && wolf.y <= y+range/2 && wolf.y>= y-range/2){
+   if(wolf.sneak ==true && wolf.x >= x-range/3 && wolf.x <= x+range/3 && wolf.y <= y+range/3 && wolf.y>= y-range/3){
     lost=true;
-   }
+   } else  if(wolf.sneak ==false && wolf.x >= x-range/2 && wolf.x <= x+range/2 && wolf.y <= y+range/2 && wolf.y>= y-range/2){
+    lost=true;
+   } else{
+    lost=false;
+  }
   }
   
   void sight(){
@@ -55,7 +59,7 @@ class Farmer{
   }
   
   void route(){
-      if(x <= 200 || x>= 800){
+      if(x <= 400 || x>= 800){
     speed = -speed;
       }
   }

@@ -81,7 +81,7 @@ void setup() {
     for (int i = 0; i < rabbit.length; i++) {
   rabbit[i] = new Rabbit(floor(random(0, width)), floor(random(0, height))); }
   mRabbit = new Rabbit(floor(random(width/2, width)), floor(random(height/2, height)));
-  farmer = new Farmer(300, 400);
+  farmer = new Farmer(400, 400);
   farmer2 = new Farmer(width/2, height/2);
   menu = new Menus();
   wall = new Wall();
@@ -130,8 +130,6 @@ void draw() {
       farmer.turnAround();
       farmer.sight();
       farmer.sightAround();
-      farmer.turnAround();
-      
       wolf.collision();
       sheep();
       rabbit();
