@@ -16,23 +16,20 @@ class Menus {
   
   PImage win;
   PImage dead;
-  
+  PImage start;
   ////Loading the images
     ///////METHODS////////
   Menus() {
    win = loadImage("images/win.png");
   dead = loadImage("images/dead.png");
-  
+  start = loadImage("images/start.png");
   win.resize(width,height);
   dead.resize(width,height);
+  start.resize(width,height);
   }
 
   void title() {
-    background(255);
-    textAlign(CENTER);
-    textSize(40);
-    fill(0);
-    text(title, width/2, height/2);
+    image(start,0,0);
   }
 
 /////Screen for the main menu (title screen)
