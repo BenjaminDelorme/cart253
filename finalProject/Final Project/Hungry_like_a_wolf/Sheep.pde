@@ -44,6 +44,7 @@ float y;
       float hitBox = x+17;
       float hitBoxY = y+17;
     image(sheep, x, y);
+    fill(0,0);
     rect(hitBox,hitBoxY,20,35);
     }
   }

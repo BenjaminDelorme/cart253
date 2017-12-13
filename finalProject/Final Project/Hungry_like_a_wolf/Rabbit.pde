@@ -95,7 +95,7 @@ void dies(){
 void diesM(){
   rabbitAlive = false;
   chomp.play();
-  bunny.play(1,0.2);
+  bunny.play(0.6,0.2);
   hp.health = hp.health+100;
 }
 

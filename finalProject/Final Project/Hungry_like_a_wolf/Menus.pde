@@ -7,7 +7,6 @@ class Menus {
   ///////PROPRETIES////////
   String wave2 = "Wave 2";
   String wave3 = "Wave 3";
-  String dead = "You are dead";
   String title = "Click any key to play";
   boolean clickTitle = false;
   boolean clickWave = false;
@@ -15,8 +14,17 @@ class Menus {
   float timerL = 2000;
   float timer=0;
   
+  PImage win;
+  PImage dead;
+  
+  ////Loading the images
     ///////METHODS////////
   Menus() {
+   win = loadImage("images/win.png");
+  dead = loadImage("images/dead.png");
+  
+  win.resize(width,height);
+  dead.resize(width,height);
   }
 
   void title() {
@@ -34,11 +42,11 @@ class Menus {
 
 /////Screen for the death menu (when you die)
   void dead() {
-    background(0);
-    textAlign(CENTER);
-    text(dead, width/2, height/2);
+    image(dead,0,0);
   }
-
+void win(){
+   image(win,0,0);
+}
 
 /////Screens for the wave title-when you switch round
     void wave2() {
